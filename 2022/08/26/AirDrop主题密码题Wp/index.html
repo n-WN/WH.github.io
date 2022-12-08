@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>AirDrop主题密码题Wp | LOV3のbolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="彩笔">
+  <meta name="keywords" content="">
+  <meta name="description" content="站点你真能抓啊，好菜的博客你也抓">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'lx',
+    version: '0.4.4',
+    localsearch:{
+      "enable": true,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": true,
+      "preload": true
+      },
+    path: 'search.xml'
+  };
+</script>
+
+  <link rel="shortcut icon" href="https://media.cdn.adultswim.com/uploads/20200802/20822040248-FrenchinaldCircle.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+<div class="single">
+<div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Search..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      <a href="javascript:;" class="popup-trigger" title="search"><i class="menu-item-icon fa fa-search fa-fw"></i></a>
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://i.cdn.turner.com/adultswim/big/img/2017/03/08/VinniePoochie.png" alt="彩笔"></a></div>
+        <span>2022-08-26</span>
+        <h2>AirDrop主题密码题Wp</h2>
+        <div class="tags"><i class="fa fa-tag"></i><a class="tag-none-link" href="/tags/CTF/" rel="tag">CTF</a></div>
+        <div class="social-links">
+    <a href="https://github.com/n-WN/" target="_blank" title="social-link"><i class="fa fa-github fa-fw"></i></a>
+    <a href="https://instagram.com/hoooooyeony" target="_blank" title="social-link"><i class="fa fa-instagram fa-fw"></i></a>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <p>一道AirDrop主题密码题wp</p>
+<h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><blockquote>
+<p>小A鼓起勇气向女神索要电话号码，但女神一定要考考他。女神说她最近刚看了一篇发表于安全顶会USENIX Security 2021的论文，论文发现苹果AirDrop隔空投送功能的漏洞，该漏洞可以向陌生人泄露AirDrop发起者或接收者的电话号码和电子邮箱。小A经过一番努力，获得了女神手机在AirDrop时传输的手机号哈希值，但再往下就不会了，你能继续帮助他吗？小A只记得女神手机号是170号段首批放号的联通号码。Hash：c22a563acc2a587afbfaaaa6d67bc6e628872b00bd7e998873881f7c6fdc62fc<br>flag格式：flag{13位电话号码（纯数字，含国家代码）}</p>
+</blockquote>
+<hr>
+<span id="more"></span>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><p>尝试随波逐流暴力破解 -&gt; 无果</p>
+</li>
+<li><p>尝试重新阅读题面 -&gt; 女神号码前五位为 +86 170(去掉加号)(看见两位区域码+联通 直觉反应是cn号段了)</p>
+</li>
+<li><p>直接Google <em>这篇论文</em> 还真查到了 <a target="_blank" rel="noopener" href="https://www.usenix.org/conference/usenixsecurity21/presentation/heinrich">PrivateDrop: Practical Privacy-Preserving Authentication for Apple AirDrop | USENIX</a> (好长不想看)</p>
+</li>
+<li><p>继续找线索 <a target="_blank" rel="noopener" href="https://eprint.iacr.org/2021/893">另一篇文章</a> 说明了简单解密原理 关键字段如下</p>
+</li>
+<li><blockquote>
+<p>Privacy and security implications include the possibility of conducting<br>advanced spear phishing attacks or deploying multiple “collector”<br>devices in order to build databases that map contact identifiers to<br>specific locations. For our proof-of-concept, we leverage a custom<br>rainbow table construction to reverse SHA-256 hashes of phone numbers in<br> a matter of milliseconds.</p>
+</blockquote>
+</li>
+<li><p>尝试 了解彩虹表</p>
+</li>
+<li><p>突然看到这篇Blog(题面 求13位 已知5位 13-5 &#x3D; 8 但是密文是13位翻译来的 那试试能不能提供片段破解)</p>
+</li>
+<li><p><img src="https://github.com/n-WN/Htmlnoob/blob/main/img/2022-08-26-11-36-01-image.png?raw=true"></p>
+</li>
+<li><p>因为是电话号码 所以生成 13位 0-9 的彩虹表</p>
+<p>理论上生成的 表 前五位可以确定为 86170</p>
+<p>于是可以只生成 8位 0-9 组成的彩虹表，接着批处理加入 86170 的前缀</p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th>由此图大约判断出题者提供的hash为</th>
+<th>sha256(utf16le($pass))</th>
+</tr>
+</thead>
+</table>
+<p><img src="https://github.com/n-WN/Htmlnoob/blob/main/img/2022-08-26-13-01-13-image.png?raw=true"></p>
+</li>
+</ol>
+<h4 id="彩虹表"><a href="#彩虹表" class="headerlink" title="彩虹表"></a>彩虹表</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-28811518-id-5715259.html">科普：彩虹表破解开机密码、MD5算法等的原理-bjutslg-ChinaUnix博客</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lsdb/p/10038835.html">暴力破解和彩虹表攻击的区别与联系 - 诸子流 - 博客园</a></p>
+<blockquote>
+<p>暴力破解和彩虹表攻击宽泛来说都属于口令破解，但他们使用的场景完全是不一样的。</p>
+<p>暴力破解：完全不知道密码—-通过系统提供的认证接口不断认证—-获取原始口令—-处于进入系统前</p>
+<p>彩虹表攻击：已知密码hash值—-通过自己的工具及彩虹表不断查找—-获取原始口令—-处理进入系统后</p>
+</blockquote>
+</blockquote>
+<p>暴力粗略估算10天左右，也知道密码hash值，于是采用彩虹表方案(到目前为止我还是不知道彩虹表怎么用)</p>
+<blockquote>
+<p>杂谈：<a target="_blank" rel="noopener" href="http://www.adayinthelifeof.nl/2011/02/02/password-hashing-and-salting/">Password hashing and salting</a></p>
+</blockquote>
+<blockquote>
+<h6 id="Q-破解一个散列的电话号码容易吗？"><a href="#Q-破解一个散列的电话号码容易吗？" class="headerlink" title="Q:破解一个散列的电话号码容易吗？"></a>Q:破解一个散列的电话号码容易吗？</h6><p>我想对电话号码进行 SHA256 哈希处理以隐藏它们。这是一个好主意吗？有没有其他方法可以使这个安全？</p>
+<h6 id="最佳回答"><a href="#最佳回答" class="headerlink" title="最佳回答"></a>最佳回答</h6><p>不，散列电话号码不是一个好主意。电话号码数量有限，因此对手很容易尝试对所有电话号码进行哈希处理。然后您可以简单地将每个哈希值与存储的哈希值进行比较。通常，您不必处理所有电话号码，而只需处理一部分电话号码（针对特定国家或逻辑上不同的其他组）。</p>
+<p>您可以使用带有盐和工作因子的慢速密码散列，但这只会意味着所需的时间乘以一个大的恒定值。它不会改变操作顺序。如果子集足够小，它可能无法阻止对手执行所有必要的计算。</p>
+<p>在这种情况下，您可能需要加密电话号码。或者使用密钥散列，例如 HMAC。对于这两个选项，您都需要对密钥执行密钥管理；这并不像散列数字那么容易。</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1180135">利用彩虹表破解Hash - 腾讯云开发者社区-腾讯云</a></p>
+</blockquote>
+<blockquote>
+<p>youtu-&gt;此漏洞演示视频<a target="_blank" rel="noopener" href="https://youtu.be/sFEUlmcj36k">USENIX Security ‘21 - PrivateDrop: Practical Privacy-Preserving Authentication for Apple AirDrop - YouTube</a></p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rtgen hash_algorithm charset plaintext_len_min plaintext_len_max table_index chain_len chain_num part_index</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 结合题意和已知信息做出如下命令</span></span><br><span class="line">rtgen sha256 numeric <span class="number">13</span> <span class="number">13</span> <span class="number">0</span> <span class="number">10000000</span> <span class="number">10000000</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>参数含义</strong><img src="https://github.com/n-WN/Htmlnoob/blob/main/img/2022-08-26-14-20-39-image.png?raw=true"></p>
+<p>但是生成了很久也没出来 应该是长宽太大了</p>
+<p>后来pl师傅说可以直接用hashcat搜后7-8位</p>
+<blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\hashcat.exe -m 1400 -a 3 c22a563acc2a587afbfaaaa6d67bc6e628872b00bd7e998873881f7c6fdc62fc 86170?d?d?d?d?d?d?d?d</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>1s 出结果</p>
+<p><img src="https://github.com/n-WN/Htmlnoob/blob/main/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-08-26%20182932.png?raw=true" alt="屏幕截图 20220826 182932png"></p>
+<h1 id="结论：直接用-hashcat-比彩虹表快（至少这道题如此"><a href="#结论：直接用-hashcat-比彩虹表快（至少这道题如此" class="headerlink" title="结论：直接用 hashcat 比彩虹表快（至少这道题如此"></a>结论：直接用 hashcat 比彩虹表快（至少这道题如此</h1><p><em>最后：为什么上面说可以只查七位呢？–见下图</em></p>
+<p><img src="https://github.com/n-WN/Htmlnoob/blob/main/img/2022-08-26-19-44-21-image.png?raw=true"></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://images8.alphacoders.com/625/625910.png)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/08/30/HWS-easyRSA-Wp/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>HWS-eas...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://images.alphacoders.com/641/641547.jpg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/05/25/%E4%BB%A3%E7%A0%81%E6%9C%AC-%E6%95%B0%E7%BB%84%E5%85%A5%E9%97%A8/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>代码本-数组入门</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+<div class="comment"><div id="comments"></div></div>
+<footer>
+  <div>
+  Copyright &copy; 2022.<a href="/">LOV3のbolg</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://i.cdn.turner.com/adultswim/big/img/2017/03/08/VinniePoochie.png" alt="彩笔"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>彩笔</p>
+          <span class="tagline">熟练拼写:icpc,Crypto,后端</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
+        
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>友链</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>
+        <li> <a href="https://kotoriseed.gitee.io/" target="_blank">Kotori</a></li>
+        <li> <a href="https://ttsohandsome.github.io/" target="_blank">TT</a></li>
+        <li> <a href="https://www.cnblogs.com/rayob1/" target="_blank">许公子Ray</a></li>
+        <li> <a href="https://www.le1a.com/" target="_blank">Le1a</a></li>
+        </ul>
+    </li>
+  </ul>
+  <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="270" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1453614559&amp;auto=1&amp;height=66"></iframe> -->
+  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=260 height=500 src="//music.163.com/outchain/player?type=0&id=5413016707&auto=0&height=430"></iframe>
+  </nav>
+</div>
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/local.search.min.js"></script>
+
+
+</body>
+</html>

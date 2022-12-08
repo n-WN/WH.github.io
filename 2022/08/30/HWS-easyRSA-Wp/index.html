@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>HWS-easyRSA-Wp | LOV3のbolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="彩笔">
+  <meta name="keywords" content="">
+  <meta name="description" content="站点你真能抓啊，好菜的博客你也抓">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'lx',
+    version: '0.4.4',
+    localsearch:{
+      "enable": true,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": true,
+      "preload": true
+      },
+    path: 'search.xml'
+  };
+</script>
+
+  <link rel="shortcut icon" href="https://media.cdn.adultswim.com/uploads/20200802/20822040248-FrenchinaldCircle.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+<div class="single">
+<div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Search..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      <a href="javascript:;" class="popup-trigger" title="search"><i class="menu-item-icon fa fa-search fa-fw"></i></a>
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://i.cdn.turner.com/adultswim/big/img/2017/03/08/VinniePoochie.png" alt="彩笔"></a></div>
+        <span>2022-08-30</span>
+        <h2>HWS-easyRSA-Wp</h2>
+        <div class="tags"><i class="fa fa-tag"></i><a class="tag-none-link" href="/tags/CTF/" rel="tag">CTF</a></div>
+        <div class="social-links">
+    <a href="https://github.com/n-WN/" target="_blank" title="social-link"><i class="fa fa-github fa-fw"></i></a>
+    <a href="https://instagram.com/hoooooyeony" target="_blank" title="social-link"><i class="fa fa-instagram fa-fw"></i></a>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <p>from <em>Kotori</em> 学长の小测验</p>
+<span id="more"></span>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># seed = bytes_to_long(flag)</span></span><br><span class="line">bits = seed.bit_length()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    p = getPrime(bits + <span class="number">1</span>) </span><br><span class="line">    <span class="keyword">if</span> p &gt; seed:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(p)</span><br><span class="line"></span><br><span class="line">a = getRandomRange(<span class="number">1</span>, p)</span><br><span class="line">b = getRandomRange(<span class="number">1</span>, p)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    seed = (a * seed + b) % p</span><br><span class="line">    <span class="built_in">print</span>(seed)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 31893593182018727625473530765941216190921866039118147474754069955393226712079257707838327486268599271803</span></span><br><span class="line"><span class="comment"># 25820280412859586557218124484272275594433027771091486422152141535682739897353623931875432576083022273940</span></span><br><span class="line"><span class="comment"># 24295465524789348024814588142969609603624462580932512051939198335014954252359986260009296537423802567677</span></span><br><span class="line"><span class="comment"># 14963686422550871447791815183480974143372785034397446416396172429864269108509521776424254168481536292904</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>RSA的计算过程是：</p>
+</blockquote>
+<ul>
+<li>任选两个大质数p和q，p!&#x3D;q，计算N&#x3D;pq</li>
+<li>计算N的欧拉函数r(n)&#x3D;(p-1)(q-1)</li>
+<li>任选一个e满足 <strong>1&lt;e&lt;r(n)</strong> ,且e与r(n)互质</li>
+<li>找到d，使e*d&#x2F;r(n)&#x3D;x……1（x是多少不重要，重要的是余数为1）后丢弃p，</li>
+<li>至此（n，e）为公钥，（n，d）为私钥</li>
+<li>加密：C&#x3D;Me(mod n)；解密：M&#x3D;Cd（mod n）</li>
+</ul>
+<blockquote>
+<p>下述推导来自 (<a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/">RSA 介绍 - CTF Wiki</a>)</p>
+</blockquote>
+<h3 id="消息加密-¶"><a href="#消息加密-¶" class="headerlink" title="消息加密 ¶"></a>消息加密 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/#_3" title="Permanent link">¶</a></h3><p>首先需要将消息 以一个双方约定好的格式转化为一个小于 N，且与 N 互质的整数 m。如果消息太长，可以将消息分为几段，这也就是我们所说的块加密，后对于每一部分利用如下公式加密：</p>
+<p>$$<br>m^{e}\equiv c\pmod N<br>$$</p>
+<h3 id="消息解密-¶"><a href="#消息解密-¶" class="headerlink" title="消息解密 ¶"></a>消息解密 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/#_4" title="Permanent link">¶</a></h3><p>利用密钥 d​ 进行解密。</p>
+<p>$$<br>c^{d}\equiv m\pmod N<br>$$</p>
+<h3 id="正确性证明-¶"><a href="#正确性证明-¶" class="headerlink" title="正确性证明 ¶"></a>正确性证明 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/#_5" title="Permanent link">¶</a></h3><p>即我们要证$m^{ed} \equiv m \bmod N$，已知$ed \equiv 1 \bmod \phi(N)$，那么 $ed&#x3D;k\phi(N)+1$，即需要证明</p>
+<p>$$<br>m^{k\phi(N)+1} \equiv m \bmod N<br>$$</p>
+<p>这里我们分两种情况证明</p>
+<p>第一种情况 $gcd(m,N)&#x3D;1​$，那么 $m^{\phi(N)} \equiv 1 \bmod N​$，因此原式成立。</p>
+<p>第二种情况 $gcd(m,N)\neq 1$，那么 $m$ 必然是 $p$ 或者 $q$ 的倍数，并且 $n&#x3D;m$ 小于 $N$。我们假设</p>
+<p>$$<br>m&#x3D;xp<br>$$</p>
+<p>那么 x 必然小于 q，又由于 q 是素数。那么</p>
+<p>$$<br>m^{\phi(q)} \equiv 1 \bmod q<br>$$</p>
+<p>进而</p>
+<p>$$<br>m^{k\phi(N)}&#x3D;m^{k(p-1)(q-1)}&#x3D;(m^{\phi(q)})^{k(p-1)} \equiv 1 \bmod q<br>$$</p>
+<p>那么</p>
+<p>$$<br>m^{k\phi(N)+1}&#x3D;m+uqm<br>$$</p>
+<p>进而</p>
+<p>$$<br>m^{k\phi(N)+1}&#x3D;m+uqxp&#x3D;m+uxN<br>$$</p>
+<p>所以原式成立。</p>
+<hr>
+<h4 id="逆元运算-拓展欧几里得算法"><a href="#逆元运算-拓展欧几里得算法" class="headerlink" title="逆元运算 (拓展欧几里得算法)"></a>逆元运算 (<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51481046">拓展欧几里得算法</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模板题博客下面拿到的结论</span></span><br><span class="line">MMI = <span class="keyword">lambda</span> A, n,s=<span class="number">1</span>,t=<span class="number">0</span>,N=<span class="number">0</span>: (n &lt; <span class="number">2</span> <span class="keyword">and</span> t%N <span class="keyword">or</span> MMI(n, A%n, t, s-A//n*t, N <span class="keyword">or</span> n),-<span class="number">1</span>)[n&lt;<span class="number">1</span>] <span class="comment">#逆元计算</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>给了n和10次lcg的output序列</p>
+<p>用公式：<strong>a&#x3D;((Xn+2-Xn+1)(Xn+1-Xn)-1)%n</strong></p>
+<p>题面给出了n &amp; output</p>
+<p>用已知信息可以求出 <em>a</em><br>再用a，output序列，n求出b<br>根据output序列第一个反推出初始seed<br>最后使用 long_to_bytes() 函数 转为字符串即可得到flag</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line">n =  <span class="number">31893593182018727625473530765941216190921866039118147474754069955393226712079257707838327486268599271803</span></span><br><span class="line">output =  [</span><br><span class="line">    <span class="number">25820280412859586557218124484272275594433027771091486422152141535682739897353623931875432576083022273940</span>,</span><br><span class="line">    <span class="number">24295465524789348024814588142969609603624462580932512051939198335014954252359986260009296537423802567677</span>,</span><br><span class="line">    <span class="number">14963686422550871447791815183480974143372785034397446416396172429864269108509521776424254168481536292904</span></span><br><span class="line">]</span><br><span class="line"><span class="comment"># print(output[0])</span></span><br><span class="line">MMI = <span class="keyword">lambda</span> A, n,s=<span class="number">1</span>,t=<span class="number">0</span>,N=<span class="number">0</span>: (n &lt; <span class="number">2</span> <span class="keyword">and</span> t%N <span class="keyword">or</span> MMI(n, A%n, t, s-A//n*t, N <span class="keyword">or</span> n),-<span class="number">1</span>)[n&lt;<span class="number">1</span>] <span class="comment">#逆元计算</span></span><br><span class="line">a = (output[<span class="number">2</span>] - output[<span class="number">1</span>])*MMI((output[<span class="number">1</span>] - output[<span class="number">0</span>]),n) % n</span><br><span class="line">ani = MMI(a,n)</span><br><span class="line">b = (output[<span class="number">1</span>] - a * output[<span class="number">0</span>]) % n</span><br><span class="line">seed = (ani*(output[<span class="number">0</span>]-b)) % n</span><br><span class="line">plaintext = seed</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(plaintext))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="%5Bctf%E4%B9%8Blcg%E7%AE%97%E6%B3%95_%E5%B0%8F%E5%81%A5%E5%81%A5%E5%81%A5%E7%9A%84%E5%8D%9A%E5%AE%A2-CSDN%E5%8D%9A%E5%AE%A2%5D(https://blog.csdn.net/superprintf/article/details/108964563)">lcg算法模板</a></p>
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://images8.alphacoders.com/625/625910.png)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/10/03/%E7%BA%BF%E6%80%A7%E7%AD%9B%E7%B4%A0%E6%95%B0/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>线性筛素数</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://images.alphacoders.com/641/641547.jpg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/08/26/AirDrop%E4%B8%BB%E9%A2%98%E5%AF%86%E7%A0%81%E9%A2%98Wp/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>AirDrop...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+<div class="comment"><div id="comments"></div></div>
+<footer>
+  <div>
+  Copyright &copy; 2022.<a href="/">LOV3のbolg</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://i.cdn.turner.com/adultswim/big/img/2017/03/08/VinniePoochie.png" alt="彩笔"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>彩笔</p>
+          <span class="tagline">熟练拼写:icpc,Crypto,后端</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
+        
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>友链</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>
+        <li> <a href="https://kotoriseed.gitee.io/" target="_blank">Kotori</a></li>
+        <li> <a href="https://ttsohandsome.github.io/" target="_blank">TT</a></li>
+        <li> <a href="https://www.cnblogs.com/rayob1/" target="_blank">许公子Ray</a></li>
+        <li> <a href="https://www.le1a.com/" target="_blank">Le1a</a></li>
+        </ul>
+    </li>
+  </ul>
+  <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="270" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1453614559&amp;auto=1&amp;height=66"></iframe> -->
+  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=260 height=500 src="//music.163.com/outchain/player?type=0&id=5413016707&auto=0&height=430"></iframe>
+  </nav>
+</div>
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/local.search.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js"></script>
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Say something.',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    lang: 'zh-CN' || 'zh-cn'
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+  TeX: {
+          extensions: ["mhchem.js"]
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+</body>
+</html>
