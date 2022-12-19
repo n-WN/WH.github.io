@@ -103,7 +103,7 @@
   <div class="lx-post">
     <div class="lx-entry padding">
       <div>
-        <h3 id="n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r"><a href="#n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r" class="headerlink" title="n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r"></a>n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r</h3><h3 id="或者"><a href="#或者" class="headerlink" title="或者"></a>或者</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Euler(Q) = Euler(q**2) -&gt; sqrt(Euler(q**2)) + 1 = q</span></span><br><span class="line"><span class="comment"># EQQ = gmpy2.iroot(Eq, 2)[0] # 求平方根</span></span><br><span class="line"><span class="comment"># q = EQQ + 1</span></span><br></pre></td></tr></table></figure>
+        <h3 id="n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r"><a href="#n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r" class="headerlink" title="n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r"></a>n和Q求最大公约数拿到q，P直接开立方拿到p，n整除p和q拿到r</h3><h3 id="或者"><a href="#或者" class="headerlink" title="或者"></a>或者</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># EQ = Euler(Q) = Euler(q**2) -&gt; sqrt(Euler(q**2)) + 1 = q</span></span><br><span class="line"><span class="comment"># EQQ = gmpy2.iroot(EQ, 2)[0] # 求平方根</span></span><br><span class="line"><span class="comment"># q = EQQ + 1</span></span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
