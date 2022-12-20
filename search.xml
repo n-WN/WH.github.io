@@ -61,6 +61,28 @@
       </tags>
   </entry>
   <entry>
+    <title>RSA基础公式&amp;正确性证明</title>
+    <url>/2022/12/08/RSA%E5%9F%BA%E7%A1%80%E5%85%AC%E5%BC%8F-%E6%AD%A3%E7%A1%AE%E6%80%A7%E8%AF%81%E6%98%8E/</url>
+    <content><![CDATA[<h2 id="基本原理-¶"><a href="#基本原理-¶" class="headerlink" title="基本原理 ¶"></a>基本原理 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_1" title="Permanent link">¶</a></h2><h3 id="公钥与私钥的产生-¶"><a href="#公钥与私钥的产生-¶" class="headerlink" title="公钥与私钥的产生 ¶"></a>公钥与私钥的产生 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_2" title="Permanent link">¶</a></h3><span id="more"></span>
+<ol>
+<li>随机选择两个不同大质数 $p$ 和 $q$，计算  $N&#x3D;p×q$</li>
+<li>根据欧拉函数，求得 $φ(N)&#x3D;φ(p)φ(q)&#x3D;(p−1)(q−1)$ </li>
+<li>选择一个小于 $φ(N)$ 的整数 $e$，使 $e$ 和 $φ(N)$ 互质。并求得 $e$ 关于 $φ(N)$ 的模反元素，命名为 $d$，有 $ed≡1(modφ(N))$</li>
+<li>将 $p$​ 和 $q$​ 的记录销毁</li>
+</ol>
+<p>此时，$(N,e)$ 是公钥，$(N,d)$ 是私钥。</p>
+<h3 id="消息加密-¶"><a href="#消息加密-¶" class="headerlink" title="消息加密 ¶"></a>消息加密 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_3" title="Permanent link">¶</a></h3><p>首先需要将消息 以一个双方约定好的格式转化为一个小于 $N$，且与 $N$ 互质的整数 $m$ 。如果消息太长，可以将消息分为几段，这也就是我们所说的块加密，后对于每一部分利用如下公式加密：</p>
+<p>$$me≡c(modN)$$</p>
+<h3 id="消息解密-¶"><a href="#消息解密-¶" class="headerlink" title="消息解密 ¶"></a>消息解密 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/#_4" title="Permanent link">¶</a></h3><p>利用密钥 $d$​ 进行解密。</p>
+<p>$$cd≡m(modN)$$</p>
+<h2 id="共模攻击-¶"><a href="#共模攻击-¶" class="headerlink" title="共模攻击 ¶"></a>共模攻击 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#_7" title="Permanent link">¶</a></h2><h3 id="攻击条件-¶"><a href="#攻击条件-¶" class="headerlink" title="攻击条件 ¶"></a>攻击条件 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#_8" title="Permanent link">¶</a></h3><p>当两个用户使用相同的模数 N、不同的私钥时，加密同一明文消息时即存在共模攻击。<br>#题目链接 <a href="https://buuoj.cn/challenges#SameMod">BUU-SameMod</a></p>
+<p>$$\left{\begin{matrix}<br>    c1&#x3D;m^{e1}modN\<br>    c2&#x3D;m^{e2}modN<br>\end{matrix}\right.$$<br>当攻击者截获 $c1$ 和 $c2$ 后，就可以恢复出明文。用扩展欧几里得算法求出 $re1+se2&#x3D;1modn$ 的两个整数 $r$ 和 $s$，由此可得：<br>$$\begin{align}<br>    c^r_1c^s_2≡&amp;M^{re1}M^{se2}modN \<br>    ≡&amp;M^{re1+se2}modN \<br>    ≡&amp;MmodN<br>\end{align}$$<br><a href="obsidian://open?vault=Obsidian%20Vault&file=RSA%E8%A7%A3%E5%AF%86%E6%8A%80%E5%B7%A7">python技巧</a><br>[[RSA解密技巧]]<br>[[z3库解方程 &amp; mpz()超高精度]]<br><a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/">CTFwiki_RSA</a></p>
+]]></content>
+      <tags>
+        <tag>数学 Crypto</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AirDrop主题密码题Wp</title>
     <url>/2022/08/26/AirDrop%E4%B8%BB%E9%A2%98%E5%AF%86%E7%A0%81%E9%A2%98Wp/</url>
     <content><![CDATA[<p>一道AirDrop主题密码题wp</p>
@@ -227,41 +249,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RSA基础公式&amp;正确性证明</title>
-    <url>/2022/12/08/RSA%E5%9F%BA%E7%A1%80%E5%85%AC%E5%BC%8F-%E6%AD%A3%E7%A1%AE%E6%80%A7%E8%AF%81%E6%98%8E/</url>
-    <content><![CDATA[<h2 id="基本原理-¶"><a href="#基本原理-¶" class="headerlink" title="基本原理 ¶"></a>基本原理 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_1" title="Permanent link">¶</a></h2><h3 id="公钥与私钥的产生-¶"><a href="#公钥与私钥的产生-¶" class="headerlink" title="公钥与私钥的产生 ¶"></a>公钥与私钥的产生 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_2" title="Permanent link">¶</a></h3><span id="more"></span>
-<ol>
-<li>随机选择两个不同大质数 $p$ 和 $q$，计算  $N&#x3D;p×q$</li>
-<li>根据欧拉函数，求得 $φ(N)&#x3D;φ(p)φ(q)&#x3D;(p−1)(q−1)$ </li>
-<li>选择一个小于 $φ(N)$ 的整数 $e$，使 $e$ 和 $φ(N)$ 互质。并求得 $e$ 关于 $φ(N)$ 的模反元素，命名为 $d$，有 $ed≡1(modφ(N))$</li>
-<li>将 $p$​ 和 $q$​ 的记录销毁</li>
-</ol>
-<p>此时，$(N,e)$ 是公钥，$(N,d)$ 是私钥。</p>
-<h3 id="消息加密-¶"><a href="#消息加密-¶" class="headerlink" title="消息加密 ¶"></a>消息加密 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_3" title="Permanent link">¶</a></h3><p>首先需要将消息 以一个双方约定好的格式转化为一个小于 $N$，且与 $N$ 互质的整数 $m$ 。如果消息太长，可以将消息分为几段，这也就是我们所说的块加密，后对于每一部分利用如下公式加密：</p>
-<p>$$me≡c(modN)$$</p>
-<h3 id="消息解密-¶"><a href="#消息解密-¶" class="headerlink" title="消息解密 ¶"></a>消息解密 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/#_4" title="Permanent link">¶</a></h3><p>利用密钥 $d$​ 进行解密。</p>
-<p>$$cd≡m(modN)$$</p>
-<h2 id="共模攻击-¶"><a href="#共模攻击-¶" class="headerlink" title="共模攻击 ¶"></a>共模攻击 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#_7" title="Permanent link">¶</a></h2><h3 id="攻击条件-¶"><a href="#攻击条件-¶" class="headerlink" title="攻击条件 ¶"></a>攻击条件 <a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#_8" title="Permanent link">¶</a></h3><p>当两个用户使用相同的模数 N、不同的私钥时，加密同一明文消息时即存在共模攻击。<br>#题目链接 <a href="https://buuoj.cn/challenges#SameMod">BUU-SameMod</a></p>
-<p>$$\left{\begin{matrix}<br>    c1&#x3D;m^{e1}modN\<br>    c2&#x3D;m^{e2}modN<br>\end{matrix}\right.$$<br>当攻击者截获 $c1$ 和 $c2$ 后，就可以恢复出明文。用扩展欧几里得算法求出 $re1+se2&#x3D;1modn$ 的两个整数 $r$ 和 $s$，由此可得：<br>$$\begin{align}<br>    c^r_1c^s_2≡&amp;M^{re1}M^{se2}modN \<br>    ≡&amp;M^{re1+se2}modN \<br>    ≡&amp;MmodN<br>\end{align}$$<br><a href="obsidian://open?vault=Obsidian%20Vault&file=RSA%E8%A7%A3%E5%AF%86%E6%8A%80%E5%B7%A7">python技巧</a><br>[[RSA解密技巧]]<br>[[z3库解方程 &amp; mpz()超高精度]]<br><a href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/">CTFwiki_RSA</a></p>
-]]></content>
-      <tags>
-        <tag>数学 Crypto</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PWHhub2022冬季赛密码学习</title>
-    <url>/2022/12/20/PWHhub2022%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h3 id="cry1のWP-lcg大杂烩暂时挖坑"><a href="#cry1のWP-lcg大杂烩暂时挖坑" class="headerlink" title="cry1のWP, lcg大杂烩暂时挖坑"></a>cry1のWP, lcg大杂烩暂时挖坑</h3><span id="more"></span>
-
-<h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">R = getPrime(<span class="number">256</span>)</span><br><span class="line">S = getPrime(<span class="number">512</span>)</span><br><span class="line">A = getPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">N = R * S * A</span><br><span class="line">c = <span class="built_in">pow</span>(m, <span class="number">0x10001</span>, N) <span class="comment"># c = m^e mod N</span></span><br><span class="line"></span><br><span class="line">RA = R &amp; A</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RSA1&#x27;</span>,<span class="built_in">hex</span>(RA * S))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RSA2&#x27;</span>,<span class="built_in">hex</span>(RA | S))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c&#x27;</span>, <span class="built_in">hex</span>(c))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;N&#x27;</span>,<span class="built_in">hex</span>(N))</span><br><span class="line"></span><br><span class="line"><span class="comment"># RSA1 0x97be543979cb98c109103fa118c1c930ff13a6b2562166417021afd6e46cb0837a5cc5f4094fcea5fcc33efdfa495050e0fb8269922b3ee2d403210ed1ba339af2dc3d4e8952f0c784fcc655436cf255b98cdaf8080df47f6c28bc0bae68c713</span></span><br><span class="line"><span class="comment"># RSA2 0xa887aa84f3a0bd8b79ed59a7bb98d8e58a85414f85cf2ddf53ff4bd9294bfdadf7d6d6adfe7fbed55fc71b5a6bfcfe79ced27e2f41e7546a8679daf5b63dda37</span></span><br><span class="line"><span class="comment"># c 0x2f62fb7e7e8e27823193119f8412050ade9084ade25261a5875da23a07d5d5145e72d460697984d8aa668a25822009a4fdc85df2b208941cd3219b312f21c3c7bc4ef7aa8c18b4f91a0e815fe1892fca0f72406e571fbd0fea2c4710c601165ccd7e8a5a828721a5e2c956b732223d683d1413ef393b5f80a431c52bf9099e22b8e27daafb9d3e055242b89b5419b8925744ccf348e1bea519225af8efe7dbcc202425251039cbfe6b892a7fcf7e9d72224ea9381e3fb32ab837139af4b4112a3c7a6571c88e7d6c5db4c3f91e25edd15eb5544ef2f29a9e1bb1062ec86f1902</span></span><br><span class="line"><span class="comment"># N 0x58a7ff25292651e1a8d82656d64fe3b458d6e688405e85aa6c02e0c33469ad3dbaef6c6eaf8faf22f2d15e80856ab7b90a40fd50c36f7b59932bc94e6fb4fabefa87b11bf4ef74df4ccf8d254f0c6812628df3c5b3786af35e3dde9c87b462d1a565af6f100750718ccb7235174947f00cec5836765150f1680d0c58a5f9ea2473a6033c218c75664dc53377dde9386f37e1a89d77e61a716129d290c5a41f81cd3490bab6fe51f232ab27cb1ac9c8eb88e908c12109a125b7439c25b6879283a17a3467823fbb089709eb836cfd03386cc4bf186eb45401472ab0bdec605fd7</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="非预期解-因-N-与-rsa1-中存在公因子-S-直接gcd-rsa1-N-求出S-又因为-S-gt-m-于是-S-直接当做-N-使用"><a href="#非预期解-因-N-与-rsa1-中存在公因子-S-直接gcd-rsa1-N-求出S-又因为-S-gt-m-于是-S-直接当做-N-使用" class="headerlink" title="非预期解(因$N$与$rsa1$中存在公因子$S$, 直接gcd(rsa1, N) 求出S, 又因为 $S &gt; m$ 于是 $S$ 直接当做 $N$ 使用"></a>非预期解(因$N$与$rsa1$中存在公因子$S$, 直接<code>gcd(rsa1, N)</code> 求出S, 又因为 $S &gt; m$ 于是 $S$ 直接当做 $N$ 使用</h3><h4 id="Q-为什么这里的-S-可以当作-N-使用呢"><a href="#Q-为什么这里的-S-可以当作-N-使用呢" class="headerlink" title="Q: 为什么这里的 $S$ 可以当作 $N$ 使用呢"></a>Q: 为什么这里的 $S$ 可以当作 $N$ 使用呢</h4><h4 id="A-这里因为-m-比-S-小-所以在模-S-和模-N-下加密程序-c-x3D-m-e-mod-N-求出来的-c-是一样的-于是把-S-当-N-算"><a href="#A-这里因为-m-比-S-小-所以在模-S-和模-N-下加密程序-c-x3D-m-e-mod-N-求出来的-c-是一样的-于是把-S-当-N-算" class="headerlink" title="A: 这里因为 $m$ 比 $S$ 小, 所以在模 $S$ 和模 $N$ 下加密程序( $c &#x3D; m^e mod N$ )求出来的 $c$ 是一样的, 于是把 $S$ 当 $N$ 算"></a>A: 这里因为 $m$ 比 $S$ 小, 所以在模 $S$ 和模 $N$ 下加密程序( $c &#x3D; m^e mod N$ )求出来的 $c$ 是一样的, 于是把 $S$ 当 $N$ 算</h4><h4 id="可以理解为因为加密公式为-m-e-mod-n-膜的数学小技巧为-c-x3D-m-e-mod-n-等同于-c＝-m-mod-n-e-所以在-S＞m-s-是-n-的一个因子-的时候-S-可以直接接做-N-使用"><a href="#可以理解为因为加密公式为-m-e-mod-n-膜的数学小技巧为-c-x3D-m-e-mod-n-等同于-c＝-m-mod-n-e-所以在-S＞m-s-是-n-的一个因子-的时候-S-可以直接接做-N-使用" class="headerlink" title="可以理解为因为加密公式为 $m^e mod n$ , 膜的数学小技巧为 $c &#x3D; m^e mod n$ 等同于 $c＝(m mod n)^e$ , 所以在 $S＞m$ ( $s$ 是 $n$ 的一个因子) 的时候,  $S$ 可以直接接做 $N$ 使用"></a>可以理解为因为加密公式为 $m^e mod n$ , 膜的数学小技巧为 $c &#x3D; m^e mod n$ 等同于 $c＝(m mod n)^e$ , 所以在 $S＞m$ ( $s$ 是 $n$ 的一个因子) 的时候,  $S$ 可以直接接做 $N$ 使用</h4><h6 id="问了些师傅-个人想法-如果有错请联系我更正谢谢！"><a href="#问了些师傅-个人想法-如果有错请联系我更正谢谢！" class="headerlink" title="问了些师傅 + 个人想法, 如果有错请联系我更正谢谢！"></a>问了些师傅 + 个人想法, 如果有错请联系我更正谢谢！</h6><h5 id="非预期解法code"><a href="#非预期解法code" class="headerlink" title="非预期解法code"></a>非预期解法code</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># from sage.all import *</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> gcd</span><br><span class="line"></span><br><span class="line">rsa1 = <span class="number">0x97be543979cb98c109103fa118c1c930ff13a6b2562166417021afd6e46cb0837a5cc5f4094fcea5fcc33efdfa495050e0fb8269922b3ee2d403210ed1ba339af2dc3d4e8952f0c784fcc655436cf255b98cdaf8080df47f6c28bc0bae68c713</span></span><br><span class="line">rsa2 = <span class="number">0xa887aa84f3a0bd8b79ed59a7bb98d8e58a85414f85cf2ddf53ff4bd9294bfdadf7d6d6adfe7fbed55fc71b5a6bfcfe79ced27e2f41e7546a8679daf5b63dda37</span></span><br><span class="line">c = <span class="number">0x2f62fb7e7e8e27823193119f8412050ade9084ade25261a5875da23a07d5d5145e72d460697984d8aa668a25822009a4fdc85df2b208941cd3219b312f21c3c7bc4ef7aa8c18b4f91a0e815fe1892fca0f72406e571fbd0fea2c4710c601165ccd7e8a5a828721a5e2c956b732223d683d1413ef393b5f80a431c52bf9099e22b8e27daafb9d3e055242b89b5419b8925744ccf348e1bea519225af8efe7dbcc202425251039cbfe6b892a7fcf7e9d72224ea9381e3fb32ab837139af4b4112a3c7a6571c88e7d6c5db4c3f91e25edd15eb5544ef2f29a9e1bb1062ec86f1902</span></span><br><span class="line">N = <span class="number">0x58a7ff25292651e1a8d82656d64fe3b458d6e688405e85aa6c02e0c33469ad3dbaef6c6eaf8faf22f2d15e80856ab7b90a40fd50c36f7b59932bc94e6fb4fabefa87b11bf4ef74df4ccf8d254f0c6812628df3c5b3786af35e3dde9c87b462d1a565af6f100750718ccb7235174947f00cec5836765150f1680d0c58a5f9ea2473a6033c218c75664dc53377dde9386f37e1a89d77e61a716129d290c5a41f81cd3490bab6fe51f232ab27cb1ac9c8eb88e908c12109a125b7439c25b6879283a17a3467823fbb089709eb836cfd03386cc4bf186eb45401472ab0bdec605fd7</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># S = gcd(N, rsa2) 因为 rsa1 和 N 都有相同的因子 (S == Because both rsa1 and N has same factor S. by BaakingDog</span></span><br><span class="line">S = gcd(N, rsa1)</span><br><span class="line"><span class="comment"># 这里想尝试分解pq, p*q太大未遂</span></span><br><span class="line"><span class="comment"># print(N//S)</span></span><br><span class="line"><span class="comment"># 非预期解 常规解法应该求出N的全部因子 (R, A) 然后d = e^-1 mod phi(N); m = c^d mod N (明文就求出来了)</span></span><br><span class="line"><span class="comment"># 而这里因为m比s小, 所以在模n和模s下求出来的m是一样的, 于是把s当n算</span></span><br><span class="line">d = inverse(e, S - <span class="number">1</span>) <span class="comment"># d = e^-1 mod phi(N) 求逆元</span></span><br><span class="line">m = <span class="built_in">pow</span>(c, d, S) <span class="comment"># 把s当n算 m = c^d mod N</span></span><br><span class="line"><span class="built_in">print</span>(S &gt; m) <span class="comment"># True 加以验证</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>(m)[<span class="number">2</span>:])) <span class="comment"># 转为字符</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(long_to_bytes(m)) # 另一种转为字符的方式</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>Crypto</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>rCTF2022密码学习</title>
     <url>/2022/12/15/rCTF2022%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h5 id="碎碎念："><a href="#碎碎念：" class="headerlink" title="碎碎念："></a>碎碎念：</h5><blockquote>
@@ -296,6 +283,19 @@
       </tags>
   </entry>
   <entry>
+    <title>PWHhub2022冬季赛密码学习</title>
+    <url>/2022/12/20/PWHhub2022%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h3 id="cry1のWP-lcg大杂烩暂时挖坑"><a href="#cry1のWP-lcg大杂烩暂时挖坑" class="headerlink" title="cry1のWP, lcg大杂烩暂时挖坑"></a>cry1のWP, lcg大杂烩暂时挖坑</h3><span id="more"></span>
+
+<h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">R = getPrime(<span class="number">256</span>)</span><br><span class="line">S = getPrime(<span class="number">512</span>)</span><br><span class="line">A = getPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">N = R * S * A</span><br><span class="line">c = <span class="built_in">pow</span>(m, <span class="number">0x10001</span>, N) <span class="comment"># c = m^e mod N</span></span><br><span class="line"></span><br><span class="line">RA = R &amp; A</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RSA1&#x27;</span>,<span class="built_in">hex</span>(RA * S))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RSA2&#x27;</span>,<span class="built_in">hex</span>(RA | S))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c&#x27;</span>, <span class="built_in">hex</span>(c))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;N&#x27;</span>,<span class="built_in">hex</span>(N))</span><br><span class="line"></span><br><span class="line"><span class="comment"># RSA1 0x97be543979cb98c109103fa118c1c930ff13a6b2562166417021afd6e46cb0837a5cc5f4094fcea5fcc33efdfa495050e0fb8269922b3ee2d403210ed1ba339af2dc3d4e8952f0c784fcc655436cf255b98cdaf8080df47f6c28bc0bae68c713</span></span><br><span class="line"><span class="comment"># RSA2 0xa887aa84f3a0bd8b79ed59a7bb98d8e58a85414f85cf2ddf53ff4bd9294bfdadf7d6d6adfe7fbed55fc71b5a6bfcfe79ced27e2f41e7546a8679daf5b63dda37</span></span><br><span class="line"><span class="comment"># c 0x2f62fb7e7e8e27823193119f8412050ade9084ade25261a5875da23a07d5d5145e72d460697984d8aa668a25822009a4fdc85df2b208941cd3219b312f21c3c7bc4ef7aa8c18b4f91a0e815fe1892fca0f72406e571fbd0fea2c4710c601165ccd7e8a5a828721a5e2c956b732223d683d1413ef393b5f80a431c52bf9099e22b8e27daafb9d3e055242b89b5419b8925744ccf348e1bea519225af8efe7dbcc202425251039cbfe6b892a7fcf7e9d72224ea9381e3fb32ab837139af4b4112a3c7a6571c88e7d6c5db4c3f91e25edd15eb5544ef2f29a9e1bb1062ec86f1902</span></span><br><span class="line"><span class="comment"># N 0x58a7ff25292651e1a8d82656d64fe3b458d6e688405e85aa6c02e0c33469ad3dbaef6c6eaf8faf22f2d15e80856ab7b90a40fd50c36f7b59932bc94e6fb4fabefa87b11bf4ef74df4ccf8d254f0c6812628df3c5b3786af35e3dde9c87b462d1a565af6f100750718ccb7235174947f00cec5836765150f1680d0c58a5f9ea2473a6033c218c75664dc53377dde9386f37e1a89d77e61a716129d290c5a41f81cd3490bab6fe51f232ab27cb1ac9c8eb88e908c12109a125b7439c25b6879283a17a3467823fbb089709eb836cfd03386cc4bf186eb45401472ab0bdec605fd7</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="非预期解-因-N-与-rsa1-中存在公因子-S-直接gcd-rsa1-N-求出S-又因为-S-gt-m-于是-S-直接当做-N-使用"><a href="#非预期解-因-N-与-rsa1-中存在公因子-S-直接gcd-rsa1-N-求出S-又因为-S-gt-m-于是-S-直接当做-N-使用" class="headerlink" title="非预期解(因$N$与$rsa1$中存在公因子$S$, 直接gcd(rsa1, N) 求出S, 又因为 $S &gt; m$ 于是 $S$ 直接当做 $N$ 使用"></a>非预期解(因$N$与$rsa1$中存在公因子$S$, 直接<code>gcd(rsa1, N)</code> 求出S, 又因为 $S &gt; m$ 于是 $S$ 直接当做 $N$ 使用</h3><h4 id="Q-为什么这里的-S-可以当作-N-使用呢"><a href="#Q-为什么这里的-S-可以当作-N-使用呢" class="headerlink" title="Q: 为什么这里的 $S$ 可以当作 $N$ 使用呢"></a>Q: 为什么这里的 $S$ 可以当作 $N$ 使用呢</h4><h4 id="A-这里因为-m-比-S-小-所以在模-S-和模-N-下加密程序-c-x3D-m-e-mod-N-求出来的-c-是一样的-于是把-S-当-N-算"><a href="#A-这里因为-m-比-S-小-所以在模-S-和模-N-下加密程序-c-x3D-m-e-mod-N-求出来的-c-是一样的-于是把-S-当-N-算" class="headerlink" title="A: 这里因为 $m$ 比 $S$ 小, 所以在模 $S$ 和模 $N$ 下加密程序( $c &#x3D; m^e mod N$ )求出来的 $c$ 是一样的, 于是把 $S$ 当 $N$ 算"></a>A: 这里因为 $m$ 比 $S$ 小, 所以在模 $S$ 和模 $N$ 下加密程序( $c &#x3D; m^e mod N$ )求出来的 $c$ 是一样的, 于是把 $S$ 当 $N$ 算</h4><h4 id="可以理解为因为加密公式为-m-e-mod-n-膜的数学小技巧为-c-x3D-m-e-mod-n-等同于-c＝-m-mod-n-e-所以在-S＞m-s-是-n-的一个因子-的时候-S-可以直接接做-N-使用"><a href="#可以理解为因为加密公式为-m-e-mod-n-膜的数学小技巧为-c-x3D-m-e-mod-n-等同于-c＝-m-mod-n-e-所以在-S＞m-s-是-n-的一个因子-的时候-S-可以直接接做-N-使用" class="headerlink" title="可以理解为因为加密公式为 $m^e mod n$ , 膜的数学小技巧为 $c &#x3D; m^e mod n$ 等同于 $c＝(m mod n)^e$ , 所以在 $S＞m$ ( $s$ 是 $n$ 的一个因子) 的时候,  $S$ 可以直接接做 $N$ 使用"></a>可以理解为因为加密公式为 $m^e mod n$ , 膜的数学小技巧为 $c &#x3D; m^e mod n$ 等同于 $c＝(m mod n)^e$ , 所以在 $S＞m$ ( $s$ 是 $n$ 的一个因子) 的时候,  $S$ 可以直接接做 $N$ 使用</h4><h6 id="问了些师傅-个人想法-如果有错请联系我更正谢谢！"><a href="#问了些师傅-个人想法-如果有错请联系我更正谢谢！" class="headerlink" title="问了些师傅 + 个人想法, 如果有错请联系我更正谢谢！"></a>问了些师傅 + 个人想法, 如果有错请联系我更正谢谢！</h6><h5 id="非预期解法code"><a href="#非预期解法code" class="headerlink" title="非预期解法code"></a>非预期解法code</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># from sage.all import *</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> gcd</span><br><span class="line"></span><br><span class="line">rsa1 = <span class="number">0x97be543979cb98c109103fa118c1c930ff13a6b2562166417021afd6e46cb0837a5cc5f4094fcea5fcc33efdfa495050e0fb8269922b3ee2d403210ed1ba339af2dc3d4e8952f0c784fcc655436cf255b98cdaf8080df47f6c28bc0bae68c713</span></span><br><span class="line">rsa2 = <span class="number">0xa887aa84f3a0bd8b79ed59a7bb98d8e58a85414f85cf2ddf53ff4bd9294bfdadf7d6d6adfe7fbed55fc71b5a6bfcfe79ced27e2f41e7546a8679daf5b63dda37</span></span><br><span class="line">c = <span class="number">0x2f62fb7e7e8e27823193119f8412050ade9084ade25261a5875da23a07d5d5145e72d460697984d8aa668a25822009a4fdc85df2b208941cd3219b312f21c3c7bc4ef7aa8c18b4f91a0e815fe1892fca0f72406e571fbd0fea2c4710c601165ccd7e8a5a828721a5e2c956b732223d683d1413ef393b5f80a431c52bf9099e22b8e27daafb9d3e055242b89b5419b8925744ccf348e1bea519225af8efe7dbcc202425251039cbfe6b892a7fcf7e9d72224ea9381e3fb32ab837139af4b4112a3c7a6571c88e7d6c5db4c3f91e25edd15eb5544ef2f29a9e1bb1062ec86f1902</span></span><br><span class="line">N = <span class="number">0x58a7ff25292651e1a8d82656d64fe3b458d6e688405e85aa6c02e0c33469ad3dbaef6c6eaf8faf22f2d15e80856ab7b90a40fd50c36f7b59932bc94e6fb4fabefa87b11bf4ef74df4ccf8d254f0c6812628df3c5b3786af35e3dde9c87b462d1a565af6f100750718ccb7235174947f00cec5836765150f1680d0c58a5f9ea2473a6033c218c75664dc53377dde9386f37e1a89d77e61a716129d290c5a41f81cd3490bab6fe51f232ab27cb1ac9c8eb88e908c12109a125b7439c25b6879283a17a3467823fbb089709eb836cfd03386cc4bf186eb45401472ab0bdec605fd7</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># S = gcd(N, rsa2) 因为 rsa1 和 N 都有相同的因子 (S == Because both rsa1 and N has same factor S. by BaakingDog</span></span><br><span class="line">S = gcd(N, rsa1)</span><br><span class="line"><span class="comment"># 这里想尝试分解pq, p*q太大未遂</span></span><br><span class="line"><span class="comment"># print(N//S)</span></span><br><span class="line"><span class="comment"># 非预期解 常规解法应该求出N的全部因子 (R, A) 然后d = e^-1 mod phi(N); m = c^d mod N (明文就求出来了)</span></span><br><span class="line"><span class="comment"># 而这里因为m比s小, 所以在模n和模s下求出来的m是一样的, 于是把s当n算</span></span><br><span class="line">d = inverse(e, S - <span class="number">1</span>) <span class="comment"># d = e^-1 mod phi(N) 求逆元</span></span><br><span class="line">m = <span class="built_in">pow</span>(c, d, S) <span class="comment"># 把s当n算 m = c^d mod N</span></span><br><span class="line"><span class="built_in">print</span>(S &gt; m) <span class="comment"># True 加以验证</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>(m)[<span class="number">2</span>:])) <span class="comment"># 转为字符</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(long_to_bytes(m)) # 另一种转为字符的方式</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Crypto</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/03/31/hello-world/</url>
     <content><![CDATA[<p><strong>Theme Quick Start</strong></p>
@@ -317,6 +317,44 @@
 ]]></content>
       <tags>
         <tag>博客搭建与主题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码云剪贴板</title>
+    <url>/2022/04/25/%E4%BB%A3%E7%A0%81%E4%BA%91%E5%89%AA%E8%B4%B4%E6%9D%BF/</url>
+    <content><![CDATA[<p>代码进入查看</p>
+<span id="more"></span>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">static</span>  Scanner sc=<span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;---欢迎---&quot;</span>);</span><br><span class="line">        String[]arr=<span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">100</span>];</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入班级人数&quot;</span>);</span><br><span class="line">        <span class="type">int</span> people= sc.nextInt();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;请输入学期课程数&quot;</span>);</span><br><span class="line">        <span class="type">int</span> course=sc.nextInt();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=course;i++)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;请输入第&quot;</span> + i + <span class="string">&quot;门课程&quot;</span>);</span><br><span class="line">            Scanner sr=<span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">            String course1=sr.nextLine();</span><br><span class="line">            arr[i]=course1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;学号&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=people;i++)&#123;</span><br><span class="line">            System.out.print(arr[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;总分&quot;</span>+<span class="string">&quot;平均分&quot;</span>);</span><br><span class="line">        student(people,course);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title function_">student</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="comment">// int a = people;int b = course;</span></span><br><span class="line">        <span class="type">int</span> [][] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">9</span>][<span class="number">9</span>];</span><br><span class="line">        <span class="type">int</span> z=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> f=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;a;i++)&#123;</span><br><span class="line">            arr[i][<span class="number">0</span>]=i+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;a;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;b;j++)&#123;</span><br><span class="line">                Random r=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">                <span class="type">int</span> grade= r.nextInt(<span class="number">100</span>)+<span class="number">1</span>;</span><br><span class="line">                arr[i][j]=grade;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// TODO 计算行平均分和总分</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;a;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;b;j++)&#123;</span><br><span class="line">                z=z+arr[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            f = z/b;</span><br><span class="line">            <span class="comment">//arr[i][b+1]=f;</span></span><br><span class="line">            z=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        for (int i=0;i&lt;a;i++)&#123;</span></span><br><span class="line"><span class="comment">//            // 行</span></span><br><span class="line"><span class="comment">//            for (int j=1;j&lt;b;j++)&#123;</span></span><br><span class="line"><span class="comment">//                // 列</span></span><br><span class="line"><span class="comment">//                z+=arr[i][j];</span></span><br><span class="line"><span class="comment">//                // 总分</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//            f=z/b;</span></span><br><span class="line"><span class="comment">//            // 平均分</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//            arr[i][b+1]=z;</span></span><br><span class="line"><span class="comment">//            arr[i][b+2]=f;</span></span><br><span class="line"><span class="comment">//            z=0;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;a;i++)&#123;</span><br><span class="line">            <span class="comment">// 行</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;b+<span class="number">3</span>;j++)&#123;</span><br><span class="line">                <span class="comment">// 列</span></span><br><span class="line"></span><br><span class="line">                System.out.print(<span class="string">&quot; &quot;</span>+arr[i][j]+<span class="string">&quot; &quot;</span>+<span class="string">&quot; \t&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>云剪贴板</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码本-数组入门</title>
+    <url>/2022/05/25/%E4%BB%A3%E7%A0%81%E6%9C%AC-%E6%95%B0%E7%BB%84%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="AcWing-数组的部分"><a href="#AcWing-数组的部分" class="headerlink" title="AcWing 数组的部分"></a>AcWing 数组的部分</h2><span id="more"></span>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;t);</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> q[<span class="number">12</span>][<span class="number">12</span>]; <span class="comment">// 初始化后全部读入</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">12</span>; i ++ )</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>;j &lt; <span class="number">12</span>; j ++ )</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%lf&quot;</span>,&amp;q[i][j]);</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> s = <span class="number">0</span>, c = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i ++ )</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>;j &lt; #(i - <span class="number">1</span>)#；j ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                s += q[i][j];</span><br><span class="line">                c += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">6</span>; i &lt;= <span class="number">10</span> ;i ++ )</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= #(<span class="number">10</span> - i)#; j ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                s += q[i][j];</span><br><span class="line">                c += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( t == <span class="string">&#x27;S&#x27;</span>) <span class="built_in">printf</span> (<span class="string">&quot;%.1lf\n&quot;</span>,s);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%.1lf\n&quot;</span>, s / c );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>代码,C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>密码学入门</title>
+    <url>/2022/05/03/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="5-2-5-5密码学习记录"><a href="#5-2-5-5密码学习记录" class="headerlink" title="5.2-5.5密码学习记录"></a>5.2-5.5密码学习记录</h2><span id="more"></span>
+
+<h1 id="看我回旋踢"><a href="#看我回旋踢" class="headerlink" title="看我回旋踢"></a>看我回旋踢</h1><p>synt{}</p>
+<h1 id="凯撒密码加密解密"><a href="#凯撒密码加密解密" class="headerlink" title="凯撒密码加密解密"></a>凯撒密码加密解密</h1><p>synt{5pq1004q-86n5-46q8-o720-oro5on0417r1}</p>
+<p>将flag与synt进行对照<br> s在26位字母中是第19位，f是第6位，由于这里是解密，需要向前推算，所以偏移量为13<br> y是第25位，l为12位，偏移量也是13 </p>
+<p><a href="https://blog.csdn.net/m0_57329653/article/details/115831888">https://blog.csdn.net/m0_57329653/article/details/115831888</a></p>
+<p>markdown语法链接</p>
+<h1 id="Rabbit-解码"><a href="#Rabbit-解码" class="headerlink" title="Rabbit 解码"></a>Rabbit 解码</h1><h1 id="Quoted-Printable编码解码"><a href="#Quoted-Printable编码解码" class="headerlink" title="Quoted-Printable编码解码"></a>Quoted-Printable编码解码</h1><h1 id="火狐浏览器清楚dns缓存-about-networking-dns"><a href="#火狐浏览器清楚dns缓存-about-networking-dns" class="headerlink" title="火狐浏览器清楚dns缓存: about:networking#dns"></a>火狐浏览器清楚dns缓存: about:networking#dns</h1><h1 id="栅栏编码"><a href="#栅栏编码" class="headerlink" title="栅栏编码"></a>栅栏编码</h1><p>felhaagv{ewtehtehfilnakgw}<br>flag{wethinkwetheflag}<br>flag{}<br>ehav weth inkw</p>
+]]></content>
+      <tags>
+        <tag>水题\密码学\RUU\靶场</tag>
       </tags>
   </entry>
   <entry>
@@ -742,18 +780,6 @@
       </tags>
   </entry>
   <entry>
-    <title>代码云剪贴板</title>
-    <url>/2022/04/25/%E4%BB%A3%E7%A0%81%E4%BA%91%E5%89%AA%E8%B4%B4%E6%9D%BF/</url>
-    <content><![CDATA[<p>代码进入查看</p>
-<span id="more"></span>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">static</span>  Scanner sc=<span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;---欢迎---&quot;</span>);</span><br><span class="line">        String[]arr=<span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">100</span>];</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入班级人数&quot;</span>);</span><br><span class="line">        <span class="type">int</span> people= sc.nextInt();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;请输入学期课程数&quot;</span>);</span><br><span class="line">        <span class="type">int</span> course=sc.nextInt();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=course;i++)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;请输入第&quot;</span> + i + <span class="string">&quot;门课程&quot;</span>);</span><br><span class="line">            Scanner sr=<span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">            String course1=sr.nextLine();</span><br><span class="line">            arr[i]=course1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;学号&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=people;i++)&#123;</span><br><span class="line">            System.out.print(arr[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;总分&quot;</span>+<span class="string">&quot;平均分&quot;</span>);</span><br><span class="line">        student(people,course);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title function_">student</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="comment">// int a = people;int b = course;</span></span><br><span class="line">        <span class="type">int</span> [][] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">9</span>][<span class="number">9</span>];</span><br><span class="line">        <span class="type">int</span> z=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> f=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;a;i++)&#123;</span><br><span class="line">            arr[i][<span class="number">0</span>]=i+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;a;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;b;j++)&#123;</span><br><span class="line">                Random r=<span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">                <span class="type">int</span> grade= r.nextInt(<span class="number">100</span>)+<span class="number">1</span>;</span><br><span class="line">                arr[i][j]=grade;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// TODO 计算行平均分和总分</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;a;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;b;j++)&#123;</span><br><span class="line">                z=z+arr[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            f = z/b;</span><br><span class="line">            <span class="comment">//arr[i][b+1]=f;</span></span><br><span class="line">            z=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        for (int i=0;i&lt;a;i++)&#123;</span></span><br><span class="line"><span class="comment">//            // 行</span></span><br><span class="line"><span class="comment">//            for (int j=1;j&lt;b;j++)&#123;</span></span><br><span class="line"><span class="comment">//                // 列</span></span><br><span class="line"><span class="comment">//                z+=arr[i][j];</span></span><br><span class="line"><span class="comment">//                // 总分</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//            f=z/b;</span></span><br><span class="line"><span class="comment">//            // 平均分</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//            arr[i][b+1]=z;</span></span><br><span class="line"><span class="comment">//            arr[i][b+2]=f;</span></span><br><span class="line"><span class="comment">//            z=0;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;a;i++)&#123;</span><br><span class="line">            <span class="comment">// 行</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;b+<span class="number">3</span>;j++)&#123;</span><br><span class="line">                <span class="comment">// 列</span></span><br><span class="line"></span><br><span class="line">                System.out.print(<span class="string">&quot; &quot;</span>+arr[i][j]+<span class="string">&quot; &quot;</span>+<span class="string">&quot; \t&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>云剪贴板</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>初中数学remake</title>
     <url>/2022/12/08/%E5%88%9D%E4%B8%AD%E6%95%B0%E5%AD%A6remake/</url>
     <content><![CDATA[<p>$$ax^2+bx+c &#x3D; 0 \quad(a!&#x3D;0) \quad\delta&gt;0$$</p>
@@ -764,6 +790,76 @@
 ]]></content>
       <tags>
         <tag>数学 Crypto</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>快速幂</title>
+    <url>/2022/12/21/%E5%BF%AB%E9%80%9F%E5%B9%82/</url>
+    <content><![CDATA[<h4 id="在acm被称为快速幂-平方求幂-在ctf中也被称为-montecarlo"><a href="#在acm被称为快速幂-平方求幂-在ctf中也被称为-montecarlo" class="headerlink" title="在acm被称为快速幂(平方求幂) 在ctf中也被称为 $montecarlo$"></a>在acm被称为<strong>快速幂</strong>(平方求幂) 在ctf中也被称为 $montecarlo$</h4><h5 id="先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为-幂"><a href="#先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为-幂" class="headerlink" title="先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为 幂"></a>先说幂运算的朴素做法，在<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%A6" title="数学">数学</a>中，重复连乘的运算叫做<strong>乘方</strong>，乘方的结果称为 <strong>幂</strong></h5><h6 id="displaystyle-n-个相同的数-displaystyle-b-连续相乘"><a href="#displaystyle-n-个相同的数-displaystyle-b-连续相乘" class="headerlink" title="${\displaystyle n}$  个相同的数 ${\displaystyle b}$  连续相乘"></a>${\displaystyle n}$ <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b" alt="n"> 个相同的数 ${\displaystyle b}$ <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/f11423fbb2e967f986e36804a8ae4271734917c3" alt="b"> 连续相乘</h6><span id="more"></span>
+
+<p>$$<br>b^n &#x3D; \overbrace {b * b * b * ···} ^ {n \ number\ of\ b}<br>$$</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// c++ version</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> b, n, sum; <span class="comment">// 仅作演示, 实际应该使用python或高精度防止爆int</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cin &gt;&gt; b &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123; <span class="comment">//对0次幂特判</span></span><br><span class="line">        std::cout &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sum = b, n = n - <span class="number">1</span>; </span><br><span class="line">    <span class="keyword">while</span> (n --) &#123;</span><br><span class="line">        sum *= b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> sum)</span><br><span class="line">    std::cout &lt;&lt; sum; <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="让我们先来思考一个问题：7的10次方，怎样算比较快？"><a href="#让我们先来思考一个问题：7的10次方，怎样算比较快？" class="headerlink" title="让我们先来思考一个问题：7的10次方，怎样算比较快？"></a>让我们先来思考一个问题：<strong>7的10次方，怎样算比较快？</strong></h4><blockquote>
+<blockquote>
+<p><strong>方法1</strong>：上述提到的朴素算法, 来计算 $7 <em>7&#x3D;49$，$49</em> 7&#x3D;343$<br>这样算无疑太慢了，尤其对计算机的CPU而言，每次运算只乘上一个个位数，无疑太屈才了。这时我们想到，也许可以拆分问题。<br><strong>方法2</strong>：先算7的5次方，即$7 <em>7</em> 7 <em>7</em> 7$，再算它的平方，共进行了<strong>5次</strong>乘法。<br><strong>方法3</strong>：先算7 <em>7得49，则7的5次方为$49</em> 49 * 7$，再算它的平方，共进行了<strong>4次</strong>乘法。</p>
+</blockquote>
+</blockquote>
+<h2 id="递归快速幂"><a href="#递归快速幂" class="headerlink" title="递归快速幂"></a>递归快速幂</h2><p>刚刚我们用到的，无非是一个<strong>二分</strong>的思路。我们很自然地可以得到一个递归方程：(虽然我觉得并不自然)<br>$$<br>b^n&#x3D;\begin{cases}b^{n-1}\cdot b,&amp;\text{if } n \text { is odd} \ b^{\frac{n}{2}}\cdot b^{\frac{n}{2}}, &amp;\text{if } n \text { is even but not 0}\ 1,&amp;\text{if } n&#x3D;0\end{cases}<br>$$</p>
+<p>计算a的n次方，如果n是偶数（不为0），那么就<strong>先计算a的n&#x2F;2次方，然后平方</strong>；如果n是奇数，那么就<strong>先计算a的n-1次方，再乘上a</strong>；</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// c++ version</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> b, n, temp, sum; <span class="comment">// 依旧避免爆int</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">powF</span><span class="params">(<span class="type">int</span> b, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">1</span>) &#123; <span class="comment">// 奇数 odd</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">powF</span>(b, n - <span class="number">1</span>) * b;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 偶数 even</span></span><br><span class="line">        temp = <span class="built_in">powF</span>(b, n / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> temp * temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cin &gt;&gt; b &gt;&gt; n;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">powF</span>(b, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意，这个temp变量是必要的，因为如果不把a-frac-n-2-记录下来，直接写成qpow-a-n-x2F-2-qpow-a-n-x2F-2-，那会计算两次a-frac-n-2-，整个算法就退化为了-O-n"><a href="#注意，这个temp变量是必要的，因为如果不把a-frac-n-2-记录下来，直接写成qpow-a-n-x2F-2-qpow-a-n-x2F-2-，那会计算两次a-frac-n-2-，整个算法就退化为了-O-n" class="headerlink" title="注意，这个temp变量是必要的，因为如果不把a^{\frac{n}{2}}记录下来，直接写成qpow(a, n &#x2F;2)*qpow(a, n &#x2F;2)，那会计算两次a^{\frac{n}{2}}，整个算法就退化为了 O(n)"></a>注意，这个temp变量是必要的，因为如果不把a^{\frac{n}{2}}记录下来，直接写成qpow(a, n &#x2F;2)*qpow(a, n &#x2F;2)，那会计算两次a^{\frac{n}{2}}，整个算法就退化为了 O(n)</h5><h5 id="在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是步步取模，如果MOD较大，还应当开long-long"><a href="#在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是步步取模，如果MOD较大，还应当开long-long" class="headerlink" title="在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是步步取模，如果MOD较大，还应当开long long"></a>在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是<strong>步步取模</strong>，如果MOD较大，还应当<strong>开long long</strong></h5><h5 id="大家知道，递归虽然简洁，但会产生额外的空间开销。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是非递归快速幂"><a href="#大家知道，递归虽然简洁，但会产生额外的空间开销。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是非递归快速幂" class="headerlink" title="大家知道，递归虽然简洁，但会产生额外的空间开销。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是非递归快速幂"></a>大家知道，递归虽然<strong>简洁</strong>，但会产生<strong>额外的空间开销</strong>。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是<strong>非递归快速幂</strong></h5><h2 id="非递归快速幂"><a href="#非递归快速幂" class="headerlink" title="非递归快速幂"></a>非递归快速幂</h2><h5 id="我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成二进制的形式，也就是-1010-2"><a href="#我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成二进制的形式，也就是-1010-2" class="headerlink" title="我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成二进制的形式，也就是 (1010)_2"></a>我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成<strong>二进制</strong>的形式，也就是 (1010)_2</h5><h5 id="现在我们要计算"><a href="#现在我们要计算" class="headerlink" title="现在我们要计算"></a>现在我们要计算</h5><p>$7^{(1010)_2}$ ，可以怎么做？我们很自然地想到可以把它拆分为 $7^{(1000)_2} \cdot 7^{(10)_2}$. 实际上，对于任意的整数，我们都可以把它拆成若干个 $7^{(100…)_2}$ 的形式相乘。而这些$7^{(100…)_2}$，恰好就是 $7^1$ 、$7^2$、$7^4$……我们只需<strong>不断把底数平方</strong>就可以算出它们。</p>
+<p>我们先看代码，再来仔细推敲这个过程：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//非递归快速幂</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">qpow</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(n)&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;<span class="number">1</span>)        <span class="comment">//如果n的当前末位为1</span></span><br><span class="line">            ans *= a;  <span class="comment">//ans乘上当前的a</span></span><br><span class="line">        a *= a;        <span class="comment">//a自乘</span></span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;       <span class="comment">//n往右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最初ans为1，然后我们一位一位算：</p>
+<p>1010的最后一位是0，所以a^1这一位不要。然后1010变为101，a变为a^2。</p>
+<p>101的最后一位是1，所以a^2这一位是需要的，乘入ans。101变为10，a再自乘。</p>
+<p>10的最后一位是0，跳过，右移，自乘。</p>
+<p>然后1的最后一位是1，ans再乘上a^8。循环结束，返回结果。</p>
+<p>这里的位运算符，&gt;&gt;是右移，表示把二进制数<strong>往右移一位</strong>，相当于&#x2F;2；&amp;是按位与，&amp;1可以理解为<strong>取出二进制数的最后一位</strong>，相当于 $\mod2&#x3D;&#x3D;1$。这么一等价，是不是看出了递归和非递归的快速幂的关系了？虽然非递归快速幂因为牵扯到二进制理解起来稍微复杂一点，但基本思路其实和递归快速幂没有太大的出入。</p>
+<h2 id="快速幂的拓展"><a href="#快速幂的拓展" class="headerlink" title="快速幂的拓展"></a>快速幂的拓展</h2><p>上面所述的都是<strong>整数</strong>的快速幂，但其实，在算 a^n 时，只要a的数据类型支持<strong>乘法</strong>且<strong>满足结合律</strong>，快速幂的算法都是有效的。矩阵、高精度整数，都可以照搬这个思路。下面给出一个模板：</p>
+<p>注意，较复杂类型的快速幂的时间复杂度不再是简单的 O(\log n) ，它与底数的乘法的时间复杂度有关。</p>
+<p>例如，<strong>矩阵快速幂</strong>的一个经典应用是求斐波那契数列：</p>
+<p><strong>（洛谷P1962） 斐波那契数列</strong></p>
+<blockquote>
+<p><strong>题目背景</strong></p>
+</blockquote>
+<p>大家都知道，斐波那契数列是满足如下性质的一个数列：<br>$$<br>F_n &#x3D; \begin{cases}1&amp; (n \le 2) \ F_{n-1}+F_{n-2}&amp; (n\ge 3) \end{cases}<br>$$<br><strong>题目描述</strong></p>
+<p>请你求出$F_n \bmod 10^9 + 7$的值。</p>
+<p><em>（以下内容涉及到基本的线性代数知识）</em></p>
+<p>设矩阵</p>
+<p>$$</p>
+<p>A&#x3D;\begin{bmatrix}0 &amp;1\ 1 &amp; 1\end{bmatrix}</p>
+<p>$$ ，我们有</p>
+<p>$$</p>
+<p>A\begin{bmatrix}F_n\ F_{n+1}\end{bmatrix} &#x3D; \begin{bmatrix}F_{n+1}\ F_n+F_{n+1}\end{bmatrix}&#x3D;\begin{bmatrix}F_{n+1}\ F_{n+2}\end{bmatrix}</p>
+<p>$$</p>
+<p>，于是 :</p>
+<p>$$</p>
+<p>\begin{aligned} \begin{bmatrix}F_n\ F_{n+1}\end{bmatrix} &amp;&#x3D; A\begin{bmatrix}F_{n-1}\ F_n\end{bmatrix}\&amp;&#x3D;A^2\begin{bmatrix}F_{n-2}\ F_{n-1}\end{bmatrix}\&amp;&#x3D;…\&amp;&#x3D;A^{n-1}\begin{bmatrix}F_1\ F_2\end{bmatrix}\&amp;&#x3D;A^{n-1}\begin{bmatrix}1\ 1\end{bmatrix} \end{aligned}</p>
+<p>$$</p>
+<p>这样，我们把原来较为复杂的问题转化成了<strong>求某个矩阵的幂</strong>的问题，这就可以应用快速幂求解了。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">matrix</span></span><br><span class="line">&#123;</span><br><span class="line">    ll a1, a2, b1, b2;</span><br><span class="line">    <span class="built_in">matrix</span>(ll a1, ll a2, ll b1, ll b2) : <span class="built_in">a1</span>(a1), <span class="built_in">a2</span>(a2), <span class="built_in">b1</span>(b1), <span class="built_in">b2</span>(b2) &#123;&#125;</span><br><span class="line">    matrix <span class="keyword">operator</span>*(<span class="type">const</span> matrix &amp;y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">matrix <span class="title">ans</span><span class="params">((a1 * y.a1 + a2 * y.b1) % MOD,</span></span></span><br><span class="line"><span class="params"><span class="function">                   (a1 * y.a2 + a2 * y.b2) % MOD,</span></span></span><br><span class="line"><span class="params"><span class="function">                   (b1 * y.a1 + b2 * y.b1) % MOD,</span></span></span><br><span class="line"><span class="params"><span class="function">                   (b1 * y.a2 + b2 * y.b2) % MOD)</span></span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">matrix <span class="title">qpow</span><span class="params">(matrix a, ll n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">matrix <span class="title">ans</span><span class="params">(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span></span>; <span class="comment">//单位矩阵</span></span><br><span class="line">    <span class="keyword">while</span> (n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &amp; <span class="number">1</span>)</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        a = a * a;</span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll x;</span><br><span class="line">    <span class="function">matrix <span class="title">M</span><span class="params">(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;x);</span><br><span class="line">    matrix ans = <span class="built_in">qpow</span>(M, x - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, (ans.a1 + ans.a2) % MOD);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>![[Pasted image 20221221012506.png]]</p>
+<blockquote>
+<p>引用几乎是复制了这篇文章: <a href="https://zhuanlan.zhihu.com/p/95902286">https://zhuanlan.zhihu.com/p/95902286</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>快读模板A+b</title>
+    <url>/2022/10/03/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BFA-b/</url>
+    <content><![CDATA[<p>stdin A+B</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span> endl = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> sscio &#123;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">pull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ll sign = <span class="number">1LL</span>,res = <span class="number">0LL</span>;</span><br><span class="line">        <span class="type">char</span> ch = <span class="built_in">getchar</span>();</span><br><span class="line">        <span class="keyword">for</span> (;!<span class="built_in">isdigit</span>(ch);ch=<span class="built_in">getchar</span>()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ch == <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">                sign *= <span class="number">-1LL</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (;<span class="built_in">isdigit</span>(ch);ch = <span class="built_in">getchar</span>()) &#123;</span><br><span class="line">            res = (res &lt;&lt; <span class="number">3</span>) + (res &lt;&lt; <span class="number">1</span>) - <span class="string">&#x27;0&#x27;</span> + ch; <span class="comment">// *10</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sign * res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll n=sscio::<span class="built_in">pull</span>();</span><br><span class="line">    ll p=sscio::<span class="built_in">pull</span>();</span><br><span class="line">    cout &lt;&lt; n + p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ^ <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>模板</tag>
       </tags>
   </entry>
   <entry>
@@ -792,39 +888,96 @@
       </tags>
   </entry>
   <entry>
-    <title>密码学入门</title>
-    <url>/2022/05/03/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="5-2-5-5密码学习记录"><a href="#5-2-5-5密码学习记录" class="headerlink" title="5.2-5.5密码学习记录"></a>5.2-5.5密码学习记录</h2><span id="more"></span>
+    <title>比赛产品雏形</title>
+    <url>/2022/04/13/%E6%AF%94%E8%B5%9B%E4%BA%A7%E5%93%81%E9%9B%8F%E5%BD%A2/</url>
+    <content><![CDATA[<h2 id="安防-安全产品概览图（具体名字暂未定）"><a href="#安防-安全产品概览图（具体名字暂未定）" class="headerlink" title="安防 - 安全产品概览图（具体名字暂未定）"></a>安防 - 安全产品概览图（具体名字暂未定）</h2><span id="more"></span>
 
-<h1 id="看我回旋踢"><a href="#看我回旋踢" class="headerlink" title="看我回旋踢"></a>看我回旋踢</h1><p>synt{}</p>
-<h1 id="凯撒密码加密解密"><a href="#凯撒密码加密解密" class="headerlink" title="凯撒密码加密解密"></a>凯撒密码加密解密</h1><p>synt{5pq1004q-86n5-46q8-o720-oro5on0417r1}</p>
-<p>将flag与synt进行对照<br> s在26位字母中是第19位，f是第6位，由于这里是解密，需要向前推算，所以偏移量为13<br> y是第25位，l为12位，偏移量也是13 </p>
-<p><a href="https://blog.csdn.net/m0_57329653/article/details/115831888">https://blog.csdn.net/m0_57329653/article/details/115831888</a></p>
-<p>markdown语法链接</p>
-<h1 id="Rabbit-解码"><a href="#Rabbit-解码" class="headerlink" title="Rabbit 解码"></a>Rabbit 解码</h1><h1 id="Quoted-Printable编码解码"><a href="#Quoted-Printable编码解码" class="headerlink" title="Quoted-Printable编码解码"></a>Quoted-Printable编码解码</h1><h1 id="火狐浏览器清楚dns缓存-about-networking-dns"><a href="#火狐浏览器清楚dns缓存-about-networking-dns" class="headerlink" title="火狐浏览器清楚dns缓存: about:networking#dns"></a>火狐浏览器清楚dns缓存: about:networking#dns</h1><h1 id="栅栏编码"><a href="#栅栏编码" class="headerlink" title="栅栏编码"></a>栅栏编码</h1><p>felhaagv{ewtehtehfilnakgw}<br>flag{wethinkwetheflag}<br>flag{}<br>ehav weth inkw</p>
-]]></content>
+<h2 id="文本展示实现"><a href="#文本展示实现" class="headerlink" title="文本展示实现"></a>文本展示实现</h2><h1 id="寄"><a href="#寄" class="headerlink" title="寄"></a>寄</h1>]]></content>
       <tags>
-        <tag>水题\密码学\RUU\靶场</tag>
+        <tag>Xmind转换</tag>
       </tags>
   </entry>
   <entry>
-    <title>代码本-数组入门</title>
-    <url>/2022/05/25/%E4%BB%A3%E7%A0%81%E6%9C%AC-%E6%95%B0%E7%BB%84%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="AcWing-数组的部分"><a href="#AcWing-数组的部分" class="headerlink" title="AcWing 数组的部分"></a>AcWing 数组的部分</h2><span id="more"></span>
+    <title>转载知乎的科学文章</title>
+    <url>/2022/05/02/%E8%BD%AC%E8%BD%BD%E7%9F%A5%E4%B9%8E%E7%9A%84%E7%A7%91%E5%AD%A6%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h1 id="一学就会，树莓派4B搭建V2Ray图文教程"><a href="#一学就会，树莓派4B搭建V2Ray图文教程" class="headerlink" title="一学就会，树莓派4B搭建V2Ray图文教程"></a>一学就会，树莓派4B搭建V2Ray图文教程</h1><p><a href="https://www.zhihu.com/people/wu-qi-yi-29">芝妈小汤圆</a></p>
+<span id="more"></span>
 
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;t);</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> q[<span class="number">12</span>][<span class="number">12</span>]; <span class="comment">// 初始化后全部读入</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">12</span>; i ++ )</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>;j &lt; <span class="number">12</span>; j ++ )</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%lf&quot;</span>,&amp;q[i][j]);</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> s = <span class="number">0</span>, c = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i ++ )</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>;j &lt; #(i - <span class="number">1</span>)#；j ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                s += q[i][j];</span><br><span class="line">                c += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">6</span>; i &lt;= <span class="number">10</span> ;i ++ )</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= #(<span class="number">10</span> - i)#; j ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                s += q[i][j];</span><br><span class="line">                c += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( t == <span class="string">&#x27;S&#x27;</span>) <span class="built_in">printf</span> (<span class="string">&quot;%.1lf\n&quot;</span>,s);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%.1lf\n&quot;</span>, s / c );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>代码,C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>快读模板A+b</title>
-    <url>/2022/10/03/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BFA-b/</url>
-    <content><![CDATA[<p>stdin A+B</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span> endl = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> sscio &#123;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">pull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ll sign = <span class="number">1LL</span>,res = <span class="number">0LL</span>;</span><br><span class="line">        <span class="type">char</span> ch = <span class="built_in">getchar</span>();</span><br><span class="line">        <span class="keyword">for</span> (;!<span class="built_in">isdigit</span>(ch);ch=<span class="built_in">getchar</span>()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ch == <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">                sign *= <span class="number">-1LL</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (;<span class="built_in">isdigit</span>(ch);ch = <span class="built_in">getchar</span>()) &#123;</span><br><span class="line">            res = (res &lt;&lt; <span class="number">3</span>) + (res &lt;&lt; <span class="number">1</span>) - <span class="string">&#x27;0&#x27;</span> + ch; <span class="comment">// *10</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sign * res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll n=sscio::<span class="built_in">pull</span>();</span><br><span class="line">    ll p=sscio::<span class="built_in">pull</span>();</span><br><span class="line">    cout &lt;&lt; n + p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ^ <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="这是我的第1篇原创技术文章"><a href="#这是我的第1篇原创技术文章" class="headerlink" title="这是我的第1篇原创技术文章"></a><em>这是我的第1篇原创技术文章</em></h2><p>大家好，我是芝妈，一个90后程序媛妈妈～</p>
+<p>作为一个自学成才的前端工程师，最近我又对硬件<strong>树莓派</strong>产生了兴趣。主要是最近小汤圆去上托班了，<strong>我全职在家闲得慌</strong>，盘算着开始给他启蒙。</p>
+<p>发现如果开始启蒙2岁的小汤圆写代码，那真的抽象得不可能完成。但是如果我可以用看得见摸得着的<strong>树莓派做一些有意思的项目</strong>，那还是有一些现实的物体可以在他的小脑瓜里留下印象的～</p>
+<p>然后，我就找出了半年前买的还在垫桌脚的树莓派，在微信读书上找了本从入门到放弃，准备开始大干一场。<strong>又发现了一个新问题！</strong></p>
+<p><strong>树莓派的raspbian系统，不支持大多数代fan理qiang软件。</strong>而不能代理对于程序员而言，无疑是鸟儿少了翅膀一样失去了行动力。所以，以下就是我研究了2天的树莓派代理大法！<strong>同样适用于windows系统和mac系统噢！</strong></p>
+<hr>
+<h2 id="什么是v2ray"><a href="#什么是v2ray" class="headerlink" title="什么是v2ray?"></a><em>什么是v2ray?</em></h2><blockquote>
+<p>V2Ray是一个与Shadowsocks类似的代理软件。V2Ray本身只是一个内核，V2Ray上的图形客户端大多是调用 V2Ray内核套一个图形界面的外壳。</p>
+</blockquote>
+<p><strong>而代理说得简单一点就是，我们自己的pc通过代理软件的客户端连接到境外服务器上的代理软件的服务端，获取境外资源。</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-eb78dac6b6e0ecc4ec3f81aa63737283_720w.jpg" alt="img"></p>
+<p>如上图，V2Ray根据不同的操作系统，有不同的客户端。<strong>本次我们按照树莓派为例</strong>，所需软件：v2net节点服务(境外服务器)，v2rayA客户端(安装在本地你的电脑上)。</p>
+<p>V2Ray github地址：</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/v2fly/v2ray-core">GitHub - v2fly&#x2F;v2ray-core: A platform for building proxies to bypass network restrictions.</a></p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/v2fly/v2ray-core">github.com&#x2F;v2fly&#x2F;v2ray-core<img src="https://pic4.zhimg.com/v2-474da921bc09c6b5966d8de82fc1ca4f_180x120.jpg" alt="img"></a></p>
+<p>V2RayA github地址：</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/v2rayA/v2rayA">https://github.com/v2rayA/v2rayA</a></p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/v2rayA/v2rayA">github.com&#x2F;v2rayA&#x2F;v2rayA</a></p>
+<hr>
+<h2 id="本地安装v2rayA"><a href="#本地安装v2rayA" class="headerlink" title="本地安装v2rayA"></a><em>本地安装v2rayA</em></h2><p>因为v2rayA客户端依赖V2Ray核心，所以我们需要先在本地安装V2Ray：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 为了后续脚本执行安装，切换root账户</span><br><span class="line">sudo su</span><br><span class="line">// 安装V2Ray</span><br><span class="line">bash &lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic1.zhimg.com/80/v2-7db33e5f48b0ad81a78ade0d37fb75e0_720w.jpg" alt="img"></p>
+<p>此时V2Ray已经安装完毕，别忘了启动服务：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 启动</span><br><span class="line">systemctl start v2ray</span><br><span class="line">// 设置开机自动启动</span><br><span class="line">systemctl enable v2ray</span><br><span class="line">// 查看服务状态</span><br><span class="line">systemctl status v2ray</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic3.zhimg.com/80/v2-7712e3d81b84c168607b15e36cf0fd5a_720w.jpg" alt="img"></p>
+<p>如上图，服务处于active状态，接着安装v2rayA：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 添加公钥</span><br><span class="line">wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">// 添加v2rayA软件源</span><br><span class="line">echo &quot;deb https://apt.v2raya.mzz.pub/ v2raya main&quot; | sudo tee /etc/apt/sources.list.d/v2raya.list</span><br><span class="line">sudo apt update</span><br><span class="line"></span><br><span class="line">// 安装v2rayA，安装前先更新一下</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt install v2raya</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，同样启动服务：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 启动</span><br><span class="line">sudo systemctl start v2raya.service</span><br><span class="line">// 设置开机自动启动</span><br><span class="line">sudo systemctl enable v2raya.service</span><br></pre></td></tr></table></figure>
+
+<p>一切完毕之后，我们打开浏览器，v2rayA就在127.0.0.1:2017上，创建用户名和密码后就可以登录了：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-961eca5b78a35cb3ec94a252153084cb_720w.jpg" alt="img"></p>
+<hr>
+<h2 id="v2net节点服务"><a href="#v2net节点服务" class="headerlink" title="v2net节点服务"></a><em>v2net节点服务</em></h2><p>如果你不想自己买境外服务器这么麻烦，可以选择便宜方便的节点服务。我选择的是v2net(</p>
+<p><a href="https://link.zhihu.com/?target=https://main.v2ray.cx/index.php">Portal Home - V2NET</a></p>
+<p><a href="https://link.zhihu.com/?target=https://main.v2ray.cx/index.php">main.v2ray.cx&#x2F;index.php<img src="https://pic4.zhimg.com/v2-c555c12260e0b251a896fa7b82fe8fb7_ipico.jpg" alt="img"></a></p>
+<p>)，看上去和v2ray是一家的。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-03cc6bd8f64d680e1e91af6254da83d3_720w.jpg" alt="img"></p>
+<p>我选的是1.9美元一个月的套餐，差不多12人民币，一个人用够够的了。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-ebd6a3c2a504ac739f8fc22cde7cfe64_720w.jpg" alt="img"></p>
+<p>复制订阅地址，在之后配置中需要用到。</p>
+<hr>
+<h2 id="设置v2rayA"><a href="#设置v2rayA" class="headerlink" title="设置v2rayA"></a><em>设置v2rayA</em></h2><p>在v2rayA选择import，导入刚刚复制的订阅地址：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8709ff5bfc3e343f49202806613756c7_720w.jpg" alt="img"></p>
+<p>导入成功后，就可以看到多了一个tab，下面有好多节点：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-27e45ff7efab467387019d71017d0e38_720w.jpg" alt="img"></p>
+<p>最后但是最关键的，打开右上角的setting，打开弹窗里左下角的address and ports：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-b4146bc6ee70508fdb72cac57beac1b6_720w.jpg" alt="img"></p>
+<p>记下不同协议对应的端口号，后面要用，如图socks5的端口是20170，http的端口是20171：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-cf139ed1ffcf18dfdbd34379615a0137_720w.jpg" alt="img"></p>
+<hr>
+<h2 id="安装浏览器扩展程序SwitchyOmega"><a href="#安装浏览器扩展程序SwitchyOmega" class="headerlink" title="安装浏览器扩展程序SwitchyOmega"></a><em>安装浏览器扩展程序SwitchyOmega</em></h2><p>虽然目前本地和远程服务器都已经设置好，但此时还没有联通，还要通过SwitchyOmega填写相应的ip和端口才能正确代理。</p>
+<p>可在</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/FelisCatus/SwitchyOmega/releases">https://github.com/FelisCatus/SwitchyOmega/releases</a></p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/FelisCatus/SwitchyOmega/releases">github.com&#x2F;FelisCatus&#x2F;SwitchyOmega&#x2F;releases</a></p>
+<p>进行下载。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-51bfdcf0b2e1415c5285943cf2e96e47_720w.jpg" alt="img"></p>
+<p>如上图，选择crx版本下载。但因为此程序crx版本无法正确安装，下载到本地后，后缀改成zip。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 解压到本地proxy文件夹</span><br><span class="line">unzip -o -d ./proxy SwitchyOmega_Chromium.zip</span><br><span class="line">// 把解压后的proxy文件夹上传到树莓派</span><br><span class="line">scp -r ./proxy pi@192.168.31.233:/home/pi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic4.zhimg.com/80/v2-fbe6f47166fa038612ca7ab476f14bdf_720w.jpg" alt="img"></p>
+<p>打开树莓派上浏览器扩展程序，右上角Developer mode打开，点击左上角Load unpacked，选择proxy文件夹，这样SwitchyOmega就安装成功了。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-7a65e004ae4b455fb82744121e4124b2_720w.jpg" alt="img"></p>
+<p>按照上图设置代理，这里socks5协议的端口要和v2rayA里面一致。每次更改设置后记得点击左边的应用选项。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-86923c6f45384767bb3f9fa71330c947_720w.jpg" alt="img"></p>
+<p>最后再设置下auto switch。auto switch有点类似于pac，符合需要代理规则的情景，走v2ray代理，不需要代理的情景直接连接。而规则列表都总结在 <a href="https://link.zhihu.com/?target=https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</a>。同样更改后，点击立即更新情景模式。</p>
+<hr>
+<h2 id="登登登-等～"><a href="#登登登-等～" class="headerlink" title="登登登~等～"></a><em>登<del>登</del>登~等～</em></h2><p>用我家65寸大电视看一下，哈哈，现在我们已经成功代理啦！</p>
+<p><img src="https://pic1.zhimg.com/80/v2-1537c768e7eae2048abba5cfc5dae404_720w.jpg" alt="img"></p>
 ]]></content>
       <tags>
-        <tag>模板</tag>
+        <tag>科学</tag>
       </tags>
   </entry>
   <entry>
@@ -1297,22 +1450,12 @@
 <li>报告问题</li>
 <li>开放合并请求</li>
 <li>传播此文档</li>
-<li>直接和我联系 <a href="mailto:&#x7a;&#x69;&#x69;&#x73;&#104;&#x61;&#110;&#x65;&#100;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x7a;&#x69;&#x69;&#x73;&#104;&#x61;&#110;&#x65;&#100;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a> 或 <a href="https://twitter.com/ziishaned"><img src="https://img.shields.io/twitter/url/https/twitter.com/ziishaned.svg?style=social&label=Follow%20@ziishaned" alt="Twitter URL"></a></li>
+<li>直接和我联系 <a href="mailto:&#x7a;&#x69;&#x69;&#x73;&#x68;&#x61;&#110;&#x65;&#100;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x7a;&#x69;&#x69;&#x73;&#x68;&#x61;&#110;&#x65;&#100;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a> 或 <a href="https://twitter.com/ziishaned"><img src="https://img.shields.io/twitter/url/https/twitter.com/ziishaned.svg?style=social&label=Follow%20@ziishaned" alt="Twitter URL"></a></li>
 </ul>
 <h2 id="许可证"><a href="#许可证" class="headerlink" title="许可证"></a>许可证</h2><p>MIT &amp;copy; <a href="https://twitter.com/ziishaned">Zeeshan Ahmad</a></p>
 ]]></content>
       <tags>
         <tag>程序技巧,Github转载</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>比赛产品雏形</title>
-    <url>/2022/04/13/%E6%AF%94%E8%B5%9B%E4%BA%A7%E5%93%81%E9%9B%8F%E5%BD%A2/</url>
-    <content><![CDATA[<h2 id="安防-安全产品概览图（具体名字暂未定）"><a href="#安防-安全产品概览图（具体名字暂未定）" class="headerlink" title="安防 - 安全产品概览图（具体名字暂未定）"></a>安防 - 安全产品概览图（具体名字暂未定）</h2><span id="more"></span>
-
-<h2 id="文本展示实现"><a href="#文本展示实现" class="headerlink" title="文本展示实现"></a>文本展示实现</h2><h1 id="寄"><a href="#寄" class="headerlink" title="寄"></a>寄</h1>]]></content>
-      <tags>
-        <tag>Xmind转换</tag>
       </tags>
   </entry>
   <entry>
@@ -1336,89 +1479,6 @@
 ]]></content>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转载知乎的科学文章</title>
-    <url>/2022/05/02/%E8%BD%AC%E8%BD%BD%E7%9F%A5%E4%B9%8E%E7%9A%84%E7%A7%91%E5%AD%A6%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h1 id="一学就会，树莓派4B搭建V2Ray图文教程"><a href="#一学就会，树莓派4B搭建V2Ray图文教程" class="headerlink" title="一学就会，树莓派4B搭建V2Ray图文教程"></a>一学就会，树莓派4B搭建V2Ray图文教程</h1><p><a href="https://www.zhihu.com/people/wu-qi-yi-29">芝妈小汤圆</a></p>
-<span id="more"></span>
-
-<h2 id="这是我的第1篇原创技术文章"><a href="#这是我的第1篇原创技术文章" class="headerlink" title="这是我的第1篇原创技术文章"></a><em>这是我的第1篇原创技术文章</em></h2><p>大家好，我是芝妈，一个90后程序媛妈妈～</p>
-<p>作为一个自学成才的前端工程师，最近我又对硬件<strong>树莓派</strong>产生了兴趣。主要是最近小汤圆去上托班了，<strong>我全职在家闲得慌</strong>，盘算着开始给他启蒙。</p>
-<p>发现如果开始启蒙2岁的小汤圆写代码，那真的抽象得不可能完成。但是如果我可以用看得见摸得着的<strong>树莓派做一些有意思的项目</strong>，那还是有一些现实的物体可以在他的小脑瓜里留下印象的～</p>
-<p>然后，我就找出了半年前买的还在垫桌脚的树莓派，在微信读书上找了本从入门到放弃，准备开始大干一场。<strong>又发现了一个新问题！</strong></p>
-<p><strong>树莓派的raspbian系统，不支持大多数代fan理qiang软件。</strong>而不能代理对于程序员而言，无疑是鸟儿少了翅膀一样失去了行动力。所以，以下就是我研究了2天的树莓派代理大法！<strong>同样适用于windows系统和mac系统噢！</strong></p>
-<hr>
-<h2 id="什么是v2ray"><a href="#什么是v2ray" class="headerlink" title="什么是v2ray?"></a><em>什么是v2ray?</em></h2><blockquote>
-<p>V2Ray是一个与Shadowsocks类似的代理软件。V2Ray本身只是一个内核，V2Ray上的图形客户端大多是调用 V2Ray内核套一个图形界面的外壳。</p>
-</blockquote>
-<p><strong>而代理说得简单一点就是，我们自己的pc通过代理软件的客户端连接到境外服务器上的代理软件的服务端，获取境外资源。</strong></p>
-<p><img src="https://pic4.zhimg.com/80/v2-eb78dac6b6e0ecc4ec3f81aa63737283_720w.jpg" alt="img"></p>
-<p>如上图，V2Ray根据不同的操作系统，有不同的客户端。<strong>本次我们按照树莓派为例</strong>，所需软件：v2net节点服务(境外服务器)，v2rayA客户端(安装在本地你的电脑上)。</p>
-<p>V2Ray github地址：</p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/v2fly/v2ray-core">GitHub - v2fly&#x2F;v2ray-core: A platform for building proxies to bypass network restrictions.</a></p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/v2fly/v2ray-core">github.com&#x2F;v2fly&#x2F;v2ray-core<img src="https://pic4.zhimg.com/v2-474da921bc09c6b5966d8de82fc1ca4f_180x120.jpg" alt="img"></a></p>
-<p>V2RayA github地址：</p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/v2rayA/v2rayA">https://github.com/v2rayA/v2rayA</a></p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/v2rayA/v2rayA">github.com&#x2F;v2rayA&#x2F;v2rayA</a></p>
-<hr>
-<h2 id="本地安装v2rayA"><a href="#本地安装v2rayA" class="headerlink" title="本地安装v2rayA"></a><em>本地安装v2rayA</em></h2><p>因为v2rayA客户端依赖V2Ray核心，所以我们需要先在本地安装V2Ray：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 为了后续脚本执行安装，切换root账户</span><br><span class="line">sudo su</span><br><span class="line">// 安装V2Ray</span><br><span class="line">bash &lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://pic1.zhimg.com/80/v2-7db33e5f48b0ad81a78ade0d37fb75e0_720w.jpg" alt="img"></p>
-<p>此时V2Ray已经安装完毕，别忘了启动服务：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 启动</span><br><span class="line">systemctl start v2ray</span><br><span class="line">// 设置开机自动启动</span><br><span class="line">systemctl enable v2ray</span><br><span class="line">// 查看服务状态</span><br><span class="line">systemctl status v2ray</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://pic3.zhimg.com/80/v2-7712e3d81b84c168607b15e36cf0fd5a_720w.jpg" alt="img"></p>
-<p>如上图，服务处于active状态，接着安装v2rayA：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 添加公钥</span><br><span class="line">wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">// 添加v2rayA软件源</span><br><span class="line">echo &quot;deb https://apt.v2raya.mzz.pub/ v2raya main&quot; | sudo tee /etc/apt/sources.list.d/v2raya.list</span><br><span class="line">sudo apt update</span><br><span class="line"></span><br><span class="line">// 安装v2rayA，安装前先更新一下</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt install v2raya</span><br></pre></td></tr></table></figure>
-
-<p>安装好后，同样启动服务：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 启动</span><br><span class="line">sudo systemctl start v2raya.service</span><br><span class="line">// 设置开机自动启动</span><br><span class="line">sudo systemctl enable v2raya.service</span><br></pre></td></tr></table></figure>
-
-<p>一切完毕之后，我们打开浏览器，v2rayA就在127.0.0.1:2017上，创建用户名和密码后就可以登录了：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-961eca5b78a35cb3ec94a252153084cb_720w.jpg" alt="img"></p>
-<hr>
-<h2 id="v2net节点服务"><a href="#v2net节点服务" class="headerlink" title="v2net节点服务"></a><em>v2net节点服务</em></h2><p>如果你不想自己买境外服务器这么麻烦，可以选择便宜方便的节点服务。我选择的是v2net(</p>
-<p><a href="https://link.zhihu.com/?target=https://main.v2ray.cx/index.php">Portal Home - V2NET</a></p>
-<p><a href="https://link.zhihu.com/?target=https://main.v2ray.cx/index.php">main.v2ray.cx&#x2F;index.php<img src="https://pic4.zhimg.com/v2-c555c12260e0b251a896fa7b82fe8fb7_ipico.jpg" alt="img"></a></p>
-<p>)，看上去和v2ray是一家的。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-03cc6bd8f64d680e1e91af6254da83d3_720w.jpg" alt="img"></p>
-<p>我选的是1.9美元一个月的套餐，差不多12人民币，一个人用够够的了。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-ebd6a3c2a504ac739f8fc22cde7cfe64_720w.jpg" alt="img"></p>
-<p>复制订阅地址，在之后配置中需要用到。</p>
-<hr>
-<h2 id="设置v2rayA"><a href="#设置v2rayA" class="headerlink" title="设置v2rayA"></a><em>设置v2rayA</em></h2><p>在v2rayA选择import，导入刚刚复制的订阅地址：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-8709ff5bfc3e343f49202806613756c7_720w.jpg" alt="img"></p>
-<p>导入成功后，就可以看到多了一个tab，下面有好多节点：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-27e45ff7efab467387019d71017d0e38_720w.jpg" alt="img"></p>
-<p>最后但是最关键的，打开右上角的setting，打开弹窗里左下角的address and ports：</p>
-<p><img src="https://pic3.zhimg.com/80/v2-b4146bc6ee70508fdb72cac57beac1b6_720w.jpg" alt="img"></p>
-<p>记下不同协议对应的端口号，后面要用，如图socks5的端口是20170，http的端口是20171：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-cf139ed1ffcf18dfdbd34379615a0137_720w.jpg" alt="img"></p>
-<hr>
-<h2 id="安装浏览器扩展程序SwitchyOmega"><a href="#安装浏览器扩展程序SwitchyOmega" class="headerlink" title="安装浏览器扩展程序SwitchyOmega"></a><em>安装浏览器扩展程序SwitchyOmega</em></h2><p>虽然目前本地和远程服务器都已经设置好，但此时还没有联通，还要通过SwitchyOmega填写相应的ip和端口才能正确代理。</p>
-<p>可在</p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/FelisCatus/SwitchyOmega/releases">https://github.com/FelisCatus/SwitchyOmega/releases</a></p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/FelisCatus/SwitchyOmega/releases">github.com&#x2F;FelisCatus&#x2F;SwitchyOmega&#x2F;releases</a></p>
-<p>进行下载。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-51bfdcf0b2e1415c5285943cf2e96e47_720w.jpg" alt="img"></p>
-<p>如上图，选择crx版本下载。但因为此程序crx版本无法正确安装，下载到本地后，后缀改成zip。</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">// 解压到本地proxy文件夹</span><br><span class="line">unzip -o -d ./proxy SwitchyOmega_Chromium.zip</span><br><span class="line">// 把解压后的proxy文件夹上传到树莓派</span><br><span class="line">scp -r ./proxy pi@192.168.31.233:/home/pi</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://pic4.zhimg.com/80/v2-fbe6f47166fa038612ca7ab476f14bdf_720w.jpg" alt="img"></p>
-<p>打开树莓派上浏览器扩展程序，右上角Developer mode打开，点击左上角Load unpacked，选择proxy文件夹，这样SwitchyOmega就安装成功了。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-7a65e004ae4b455fb82744121e4124b2_720w.jpg" alt="img"></p>
-<p>按照上图设置代理，这里socks5协议的端口要和v2rayA里面一致。每次更改设置后记得点击左边的应用选项。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-86923c6f45384767bb3f9fa71330c947_720w.jpg" alt="img"></p>
-<p>最后再设置下auto switch。auto switch有点类似于pac，符合需要代理规则的情景，走v2ray代理，不需要代理的情景直接连接。而规则列表都总结在 <a href="https://link.zhihu.com/?target=https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</a>。同样更改后，点击立即更新情景模式。</p>
-<hr>
-<h2 id="登登登-等～"><a href="#登登登-等～" class="headerlink" title="登登登~等～"></a><em>登<del>登</del>登~等～</em></h2><p>用我家65寸大电视看一下，哈哈，现在我们已经成功代理啦！</p>
-<p><img src="https://pic1.zhimg.com/80/v2-1537c768e7eae2048abba5cfc5dae404_720w.jpg" alt="img"></p>
-]]></content>
-      <tags>
-        <tag>科学</tag>
       </tags>
   </entry>
   <entry>

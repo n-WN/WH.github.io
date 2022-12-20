@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>快速幂 | LOV3のbolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="彩笔">
+  <meta name="keywords" content="">
+  <meta name="description" content="站点你真能抓啊，好菜的博客你也抓">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'lx',
+    version: '0.4.4',
+    localsearch:{
+      "enable": true,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": true,
+      "preload": true
+      },
+    path: 'search.xml'
+  };
+</script>
+
+  <link rel="shortcut icon" href="https://media.cdn.adultswim.com/uploads/20200802/20822040248-FrenchinaldCircle.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+<div class="single">
+<div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Search..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://cdn.jsdelivr.net/npm/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      <a href="javascript:;" class="popup-trigger" title="search"><i class="menu-item-icon fa fa-search fa-fw"></i></a>
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://i.cdn.turner.com/adultswim/big/img/2017/03/08/VinniePoochie.png" alt="彩笔"></a></div>
+        <span>2022-12-21</span>
+        <h2>快速幂</h2>
+        <div class="tags"><i class="fa fa-tag"></i><a class="tag-none-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></div>
+        <div class="social-links">
+    <a href="https://github.com/n-WN/" target="_blank" title="social-link"><i class="fa fa-github fa-fw"></i></a>
+    <a href="https://instagram.com/hoooooyeony" target="_blank" title="social-link"><i class="fa fa-instagram fa-fw"></i></a>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <h4 id="在acm被称为快速幂-平方求幂-在ctf中也被称为-montecarlo"><a href="#在acm被称为快速幂-平方求幂-在ctf中也被称为-montecarlo" class="headerlink" title="在acm被称为快速幂(平方求幂) 在ctf中也被称为 $montecarlo$"></a>在acm被称为<strong>快速幂</strong>(平方求幂) 在ctf中也被称为 $montecarlo$</h4><h5 id="先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为-幂"><a href="#先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为-幂" class="headerlink" title="先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为 幂"></a>先说幂运算的朴素做法，在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%A6" title="数学">数学</a>中，重复连乘的运算叫做<strong>乘方</strong>，乘方的结果称为 <strong>幂</strong></h5><h6 id="displaystyle-n-个相同的数-displaystyle-b-连续相乘"><a href="#displaystyle-n-个相同的数-displaystyle-b-连续相乘" class="headerlink" title="${\displaystyle n}$  个相同的数 ${\displaystyle b}$  连续相乘"></a>${\displaystyle n}$ <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b" alt="n"> 个相同的数 ${\displaystyle b}$ <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/f11423fbb2e967f986e36804a8ae4271734917c3" alt="b"> 连续相乘</h6><span id="more"></span>
+
+<p>$$<br>b^n &#x3D; \overbrace {b * b * b * ···} ^ {n \ number\ of\ b}<br>$$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c++ version</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> b, n, sum; <span class="comment">// 仅作演示, 实际应该使用python或高精度防止爆int</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cin &gt;&gt; b &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123; <span class="comment">//对0次幂特判</span></span><br><span class="line">        std::cout &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sum = b, n = n - <span class="number">1</span>; </span><br><span class="line">    <span class="keyword">while</span> (n --) &#123;</span><br><span class="line">        sum *= b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> sum)</span><br><span class="line">    std::cout &lt;&lt; sum; <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="让我们先来思考一个问题：7的10次方，怎样算比较快？"><a href="#让我们先来思考一个问题：7的10次方，怎样算比较快？" class="headerlink" title="让我们先来思考一个问题：7的10次方，怎样算比较快？"></a>让我们先来思考一个问题：<strong>7的10次方，怎样算比较快？</strong></h4><blockquote>
+<blockquote>
+<p><strong>方法1</strong>：上述提到的朴素算法, 来计算 $7 <em>7&#x3D;49$，$49</em> 7&#x3D;343$<br>这样算无疑太慢了，尤其对计算机的CPU而言，每次运算只乘上一个个位数，无疑太屈才了。这时我们想到，也许可以拆分问题。<br><strong>方法2</strong>：先算7的5次方，即$7 <em>7</em> 7 <em>7</em> 7$，再算它的平方，共进行了<strong>5次</strong>乘法。<br><strong>方法3</strong>：先算7 <em>7得49，则7的5次方为$49</em> 49 * 7$，再算它的平方，共进行了<strong>4次</strong>乘法。</p>
+</blockquote>
+</blockquote>
+<h2 id="递归快速幂"><a href="#递归快速幂" class="headerlink" title="递归快速幂"></a>递归快速幂</h2><p>刚刚我们用到的，无非是一个<strong>二分</strong>的思路。我们很自然地可以得到一个递归方程：(虽然我觉得并不自然)<br>$$<br>b^n&#x3D;\begin{cases}b^{n-1}\cdot b,&amp;\text{if } n \text { is odd} \ b^{\frac{n}{2}}\cdot b^{\frac{n}{2}}, &amp;\text{if } n \text { is even but not 0}\ 1,&amp;\text{if } n&#x3D;0\end{cases}<br>$$</p>
+<p>计算a的n次方，如果n是偶数（不为0），那么就<strong>先计算a的n&#x2F;2次方，然后平方</strong>；如果n是奇数，那么就<strong>先计算a的n-1次方，再乘上a</strong>；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c++ version</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> b, n, temp, sum; <span class="comment">// 依旧避免爆int</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">powF</span><span class="params">(<span class="type">int</span> b, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">1</span>) &#123; <span class="comment">// 奇数 odd</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">powF</span>(b, n - <span class="number">1</span>) * b;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 偶数 even</span></span><br><span class="line">        temp = <span class="built_in">powF</span>(b, n / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> temp * temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cin &gt;&gt; b &gt;&gt; n;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">powF</span>(b, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意，这个temp变量是必要的，因为如果不把a-frac-n-2-记录下来，直接写成qpow-a-n-x2F-2-qpow-a-n-x2F-2-，那会计算两次a-frac-n-2-，整个算法就退化为了-O-n"><a href="#注意，这个temp变量是必要的，因为如果不把a-frac-n-2-记录下来，直接写成qpow-a-n-x2F-2-qpow-a-n-x2F-2-，那会计算两次a-frac-n-2-，整个算法就退化为了-O-n" class="headerlink" title="注意，这个temp变量是必要的，因为如果不把a^{\frac{n}{2}}记录下来，直接写成qpow(a, n &#x2F;2)*qpow(a, n &#x2F;2)，那会计算两次a^{\frac{n}{2}}，整个算法就退化为了 O(n)"></a>注意，这个temp变量是必要的，因为如果不把a^{\frac{n}{2}}记录下来，直接写成qpow(a, n &#x2F;2)*qpow(a, n &#x2F;2)，那会计算两次a^{\frac{n}{2}}，整个算法就退化为了 O(n)</h5><h5 id="在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是步步取模，如果MOD较大，还应当开long-long"><a href="#在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是步步取模，如果MOD较大，还应当开long-long" class="headerlink" title="在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是步步取模，如果MOD较大，还应当开long long"></a>在实际问题中，题目常常会要求对一个大素数取模，这是因为计算结果可能会非常巨大，但是在这里考察高精度又没有必要。这时我们的快速幂也应当进行取模，此时应当注意，原则是<strong>步步取模</strong>，如果MOD较大，还应当<strong>开long long</strong></h5><h5 id="大家知道，递归虽然简洁，但会产生额外的空间开销。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是非递归快速幂"><a href="#大家知道，递归虽然简洁，但会产生额外的空间开销。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是非递归快速幂" class="headerlink" title="大家知道，递归虽然简洁，但会产生额外的空间开销。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是非递归快速幂"></a>大家知道，递归虽然<strong>简洁</strong>，但会产生<strong>额外的空间开销</strong>。我们可以把递归改写为循环，来避免对栈空间的大量占用，也就是<strong>非递归快速幂</strong></h5><h2 id="非递归快速幂"><a href="#非递归快速幂" class="headerlink" title="非递归快速幂"></a>非递归快速幂</h2><h5 id="我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成二进制的形式，也就是-1010-2"><a href="#我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成二进制的形式，也就是-1010-2" class="headerlink" title="我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成二进制的形式，也就是 (1010)_2"></a>我们换一个角度来引入非递归的快速幂。还是7的10次方，但这次，我们把10写成<strong>二进制</strong>的形式，也就是 (1010)_2</h5><h5 id="现在我们要计算"><a href="#现在我们要计算" class="headerlink" title="现在我们要计算"></a>现在我们要计算</h5><p>$7^{(1010)_2}$ ，可以怎么做？我们很自然地想到可以把它拆分为 $7^{(1000)_2} \cdot 7^{(10)_2}$. 实际上，对于任意的整数，我们都可以把它拆成若干个 $7^{(100…)_2}$ 的形式相乘。而这些$7^{(100…)_2}$，恰好就是 $7^1$ 、$7^2$、$7^4$……我们只需<strong>不断把底数平方</strong>就可以算出它们。</p>
+<p>我们先看代码，再来仔细推敲这个过程：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归快速幂</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">qpow</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(n)&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;<span class="number">1</span>)        <span class="comment">//如果n的当前末位为1</span></span><br><span class="line">            ans *= a;  <span class="comment">//ans乘上当前的a</span></span><br><span class="line">        a *= a;        <span class="comment">//a自乘</span></span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;       <span class="comment">//n往右移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最初ans为1，然后我们一位一位算：</p>
+<p>1010的最后一位是0，所以a^1这一位不要。然后1010变为101，a变为a^2。</p>
+<p>101的最后一位是1，所以a^2这一位是需要的，乘入ans。101变为10，a再自乘。</p>
+<p>10的最后一位是0，跳过，右移，自乘。</p>
+<p>然后1的最后一位是1，ans再乘上a^8。循环结束，返回结果。</p>
+<p>这里的位运算符，&gt;&gt;是右移，表示把二进制数<strong>往右移一位</strong>，相当于&#x2F;2；&amp;是按位与，&amp;1可以理解为<strong>取出二进制数的最后一位</strong>，相当于 $\mod2&#x3D;&#x3D;1$。这么一等价，是不是看出了递归和非递归的快速幂的关系了？虽然非递归快速幂因为牵扯到二进制理解起来稍微复杂一点，但基本思路其实和递归快速幂没有太大的出入。</p>
+<h2 id="快速幂的拓展"><a href="#快速幂的拓展" class="headerlink" title="快速幂的拓展"></a>快速幂的拓展</h2><p>上面所述的都是<strong>整数</strong>的快速幂，但其实，在算 a^n 时，只要a的数据类型支持<strong>乘法</strong>且<strong>满足结合律</strong>，快速幂的算法都是有效的。矩阵、高精度整数，都可以照搬这个思路。下面给出一个模板：</p>
+<p>注意，较复杂类型的快速幂的时间复杂度不再是简单的 O(\log n) ，它与底数的乘法的时间复杂度有关。</p>
+<p>例如，<strong>矩阵快速幂</strong>的一个经典应用是求斐波那契数列：</p>
+<p><strong>（洛谷P1962） 斐波那契数列</strong></p>
+<blockquote>
+<p><strong>题目背景</strong></p>
+</blockquote>
+<p>大家都知道，斐波那契数列是满足如下性质的一个数列：<br>$$<br>F_n &#x3D; \begin{cases}1&amp; (n \le 2) \ F_{n-1}+F_{n-2}&amp; (n\ge 3) \end{cases}<br>$$<br><strong>题目描述</strong></p>
+<p>请你求出$F_n \bmod 10^9 + 7$的值。</p>
+<p><em>（以下内容涉及到基本的线性代数知识）</em></p>
+<p>设矩阵</p>
+<p>$$</p>
+<p>A&#x3D;\begin{bmatrix}0 &amp;1\ 1 &amp; 1\end{bmatrix}</p>
+<p>$$ ，我们有</p>
+<p>$$</p>
+<p>A\begin{bmatrix}F_n\ F_{n+1}\end{bmatrix} &#x3D; \begin{bmatrix}F_{n+1}\ F_n+F_{n+1}\end{bmatrix}&#x3D;\begin{bmatrix}F_{n+1}\ F_{n+2}\end{bmatrix}</p>
+<p>$$</p>
+<p>，于是 :</p>
+<p>$$</p>
+<p>\begin{aligned} \begin{bmatrix}F_n\ F_{n+1}\end{bmatrix} &amp;&#x3D; A\begin{bmatrix}F_{n-1}\ F_n\end{bmatrix}\&amp;&#x3D;A^2\begin{bmatrix}F_{n-2}\ F_{n-1}\end{bmatrix}\&amp;&#x3D;…\&amp;&#x3D;A^{n-1}\begin{bmatrix}F_1\ F_2\end{bmatrix}\&amp;&#x3D;A^{n-1}\begin{bmatrix}1\ 1\end{bmatrix} \end{aligned}</p>
+<p>$$</p>
+<p>这样，我们把原来较为复杂的问题转化成了<strong>求某个矩阵的幂</strong>的问题，这就可以应用快速幂求解了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">matrix</span></span><br><span class="line">&#123;</span><br><span class="line">    ll a1, a2, b1, b2;</span><br><span class="line">    <span class="built_in">matrix</span>(ll a1, ll a2, ll b1, ll b2) : <span class="built_in">a1</span>(a1), <span class="built_in">a2</span>(a2), <span class="built_in">b1</span>(b1), <span class="built_in">b2</span>(b2) &#123;&#125;</span><br><span class="line">    matrix <span class="keyword">operator</span>*(<span class="type">const</span> matrix &amp;y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">matrix <span class="title">ans</span><span class="params">((a1 * y.a1 + a2 * y.b1) % MOD,</span></span></span><br><span class="line"><span class="params"><span class="function">                   (a1 * y.a2 + a2 * y.b2) % MOD,</span></span></span><br><span class="line"><span class="params"><span class="function">                   (b1 * y.a1 + b2 * y.b1) % MOD,</span></span></span><br><span class="line"><span class="params"><span class="function">                   (b1 * y.a2 + b2 * y.b2) % MOD)</span></span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">matrix <span class="title">qpow</span><span class="params">(matrix a, ll n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">matrix <span class="title">ans</span><span class="params">(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span></span>; <span class="comment">//单位矩阵</span></span><br><span class="line">    <span class="keyword">while</span> (n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &amp; <span class="number">1</span>)</span><br><span class="line">            ans = ans * a;</span><br><span class="line">        a = a * a;</span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll x;</span><br><span class="line">    <span class="function">matrix <span class="title">M</span><span class="params">(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;x);</span><br><span class="line">    matrix ans = <span class="built_in">qpow</span>(M, x - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, (ans.a1 + ans.a2) % MOD);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>![[Pasted image 20221221012506.png]]</p>
+<blockquote>
+<p>引用几乎是复制了这篇文章: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/95902286">https://zhuanlan.zhihu.com/p/95902286</a></p>
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://images8.alphacoders.com/625/625910.png)">
+		<div class="overlay"></div>
+		<a class="copy" href="#">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>No newer post</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://images.alphacoders.com/641/641547.jpg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/12/20/PWHhub2022%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>PWHhub2...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+<div class="comment"><div id="comments"></div></div>
+<footer>
+  <div>
+  Copyright &copy; 2022.<a href="/">LOV3のbolg</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://i.cdn.turner.com/adultswim/big/img/2017/03/08/VinniePoochie.png" alt="彩笔"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>彩笔</p>
+          <span class="tagline">熟练拼写:ICPC,Crypto,后端</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-th-list fa-fw"></i>Categories</span>
+        
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>
+        <li> <a href="https://kotoriseed.github.io" target="_blank">Kotori</a></li>
+        <li> <a href="https://ttsohandsome.github.io/" target="_blank">TT</a></li>
+        <li> <a href="https://www.cnblogs.com/rayob1/" target="_blank">许公子Ray</a></li>
+        <li> <a href="https://www.le1a.com/" target="_blank">Le1a</a></li>
+        </ul>
+    </li>
+  </ul>
+  <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="270" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1453614559&amp;auto=1&amp;height=66"></iframe> -->
+  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=260 height=500 src="//music.163.com/outchain/player?type=0&id=5413016707&auto=0&height=430"></iframe>
+  </nav>
+</div>
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+<script src="https://cdn.jsdelivr.net/npm/theme-lx@0.4.4/source/dist/js/local.search.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js"></script>
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Say something.',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+  TeX: {
+          extensions: ["mhchem.js"]
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+</body>
+</html>
