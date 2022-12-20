@@ -103,7 +103,7 @@
   <div class="lx-post">
     <div class="lx-entry padding">
       <div>
-        <h3 id="cry1のWP-lcg大杂烩暂时挖坑"><a href="#cry1のWP-lcg大杂烩暂时挖坑" class="headerlink" title="cry1のWP, lcg大杂烩暂时挖坑"></a>cry1のWP, lcg大杂烩暂时挖坑</h3><span id="more"></span>
+        <h3 id="cry1のWP-大杂烩暂时挖坑"><a href="#cry1のWP-大杂烩暂时挖坑" class="headerlink" title="cry1のWP, 大杂烩暂时挖坑"></a>cry1のWP, 大杂烩暂时挖坑</h3><span id="more"></span>
 
 <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">R = getPrime(<span class="number">256</span>)</span><br><span class="line">S = getPrime(<span class="number">512</span>)</span><br><span class="line">A = getPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">N = R * S * A</span><br><span class="line">c = <span class="built_in">pow</span>(m, <span class="number">0x10001</span>, N) <span class="comment"># c = m^e mod N</span></span><br><span class="line"></span><br><span class="line">RA = R &amp; A</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RSA1&#x27;</span>,<span class="built_in">hex</span>(RA * S))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;RSA2&#x27;</span>,<span class="built_in">hex</span>(RA | S))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c&#x27;</span>, <span class="built_in">hex</span>(c))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;N&#x27;</span>,<span class="built_in">hex</span>(N))</span><br><span class="line"></span><br><span class="line"><span class="comment"># RSA1 0x97be543979cb98c109103fa118c1c930ff13a6b2562166417021afd6e46cb0837a5cc5f4094fcea5fcc33efdfa495050e0fb8269922b3ee2d403210ed1ba339af2dc3d4e8952f0c784fcc655436cf255b98cdaf8080df47f6c28bc0bae68c713</span></span><br><span class="line"><span class="comment"># RSA2 0xa887aa84f3a0bd8b79ed59a7bb98d8e58a85414f85cf2ddf53ff4bd9294bfdadf7d6d6adfe7fbed55fc71b5a6bfcfe79ced27e2f41e7546a8679daf5b63dda37</span></span><br><span class="line"><span class="comment"># c 0x2f62fb7e7e8e27823193119f8412050ade9084ade25261a5875da23a07d5d5145e72d460697984d8aa668a25822009a4fdc85df2b208941cd3219b312f21c3c7bc4ef7aa8c18b4f91a0e815fe1892fca0f72406e571fbd0fea2c4710c601165ccd7e8a5a828721a5e2c956b732223d683d1413ef393b5f80a431c52bf9099e22b8e27daafb9d3e055242b89b5419b8925744ccf348e1bea519225af8efe7dbcc202425251039cbfe6b892a7fcf7e9d72224ea9381e3fb32ab837139af4b4112a3c7a6571c88e7d6c5db4c3f91e25edd15eb5544ef2f29a9e1bb1062ec86f1902</span></span><br><span class="line"><span class="comment"># N 0x58a7ff25292651e1a8d82656d64fe3b458d6e688405e85aa6c02e0c33469ad3dbaef6c6eaf8faf22f2d15e80856ab7b90a40fd50c36f7b59932bc94e6fb4fabefa87b11bf4ef74df4ccf8d254f0c6812628df3c5b3786af35e3dde9c87b462d1a565af6f100750718ccb7235174947f00cec5836765150f1680d0c58a5f9ea2473a6033c218c75664dc53377dde9386f37e1a89d77e61a716129d290c5a41f81cd3490bab6fe51f232ab27cb1ac9c8eb88e908c12109a125b7439c25b6879283a17a3467823fbb089709eb836cfd03386cc4bf186eb45401472ab0bdec605fd7</span></span><br></pre></td></tr></table></figure>
 
@@ -175,21 +175,21 @@
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-th-list fa-fw"></i>Categories</span>
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
         
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
         <ul>
           <li><a href="/guestbook/">Guestbook</a></li>
         <li><a href="/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
+      <i class="fa fa-link fa-fw"></i>友链</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>
