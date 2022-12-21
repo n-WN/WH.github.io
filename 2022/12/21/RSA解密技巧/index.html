@@ -103,7 +103,9 @@
   <div class="lx-post">
     <div class="lx-entry padding">
       <div>
-        <h2 id="已知n-且p、q相邻"><a href="#已知n-且p、q相邻" class="headerlink" title="已知n 且p、q相邻"></a>已知n 且p、q相邻</h2><h5 id="线索是在加密脚本中可以找到如下类似代码"><a href="#线索是在加密脚本中可以找到如下类似代码" class="headerlink" title="线索是在加密脚本中可以找到如下类似代码"></a>线索是在加密脚本中可以找到如下类似代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">q = <span class="built_in">int</span>(gmpy2.next_prime(p))</span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
+        <h3 id="保存一些推导好的结论"><a href="#保存一些推导好的结论" class="headerlink" title="保存一些推导好的结论"></a>保存一些推导好的结论</h3><span id="more"></span>
+
+<h2 id="已知n-且p、q相邻"><a href="#已知n-且p、q相邻" class="headerlink" title="已知n 且p、q相邻"></a>已知n 且p、q相邻</h2><h5 id="线索是在加密脚本中可以找到如下类似代码"><a href="#线索是在加密脚本中可以找到如下类似代码" class="headerlink" title="线索是在加密脚本中可以找到如下类似代码"></a>线索是在加密脚本中可以找到如下类似代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">q = <span class="built_in">int</span>(gmpy2.next_prime(p))</span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
 
 <h5 id="如下代码解出p、q"><a href="#如下代码解出p、q" class="headerlink" title="如下代码解出p、q"></a>如下代码解出p、q</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pq相邻 为n开方</span></span><br><span class="line">n2 = <span class="built_in">int</span>(gmpy2.iroot(n, <span class="number">2</span>)[<span class="number">0</span>])</span><br><span class="line">p = sympy.nextprime(n2)</span><br><span class="line">q = n//p</span><br></pre></td></tr></table></figure>
 
@@ -144,7 +146,7 @@
 				<div class="display-tc">
 					<div>
 						<span>Next</span>
-						<h3>No newer post</h3>
+						<h3>没有更新的文章</h3>
 					</div>
 				</div>
 			</div>
@@ -198,21 +200,21 @@
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-th-list fa-fw"></i>Categories</span>
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
         
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
         <ul>
           <li><a href="/guestbook/">Guestbook</a></li>
         <li><a href="/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
+      <i class="fa fa-link fa-fw"></i>友链</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>

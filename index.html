@@ -105,36 +105,8 @@
     <div>
       <h2 class="title"><a href="/2022/12/21/RSA%E8%A7%A3%E5%AF%86%E6%8A%80%E5%B7%A7/">RSA解密技巧</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-21</span>
-      <p><h2 id="已知n-且p、q相邻"><a href="#已知n-且p、q相邻" class="headerlink" title="已知n 且p、q相邻"></a>已知n 且p、q相邻</h2><h5 id="线索是在加密脚本中可以找到如下类似代码"><a href="#线索是在加密脚本中可以找到如下类似代码" class="headerlink" title="线索是在加密脚本中可以找到如下类似代码"></a>线索是在加密脚本中可以找到如下类似代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">q = <span class="built_in">int</span>(gmpy2.next_prime(p))</span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
-
-<h5 id="如下代码解出p、q"><a href="#如下代码解出p、q" class="headerlink" title="如下代码解出p、q"></a>如下代码解出p、q</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pq相邻 为n开方</span></span><br><span class="line">n2 = <span class="built_in">int</span>(gmpy2.iroot(n, <span class="number">2</span>)[<span class="number">0</span>])</span><br><span class="line">p = sympy.nextprime(n2)</span><br><span class="line">q = n//p</span><br></pre></td></tr></table></figure>
-
-<h6 id="加以验证"><a href="#加以验证" class="headerlink" title="加以验证"></a>加以验证</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(p*q)</span><br><span class="line"><span class="built_in">print</span>(n == p*q) <span class="comment">#返回True</span></span><br></pre></td></tr></table></figure>
-
-<h6 id="q-x3D-sympy-nextprime-，意味着-p-和-q-是相邻的素数，非常接近，于是可以将-N-开平方根，这个数的-nextprime-就为-q"><a href="#q-x3D-sympy-nextprime-，意味着-p-和-q-是相邻的素数，非常接近，于是可以将-N-开平方根，这个数的-nextprime-就为-q" class="headerlink" title="q &#x3D; sympy.nextprime()，意味着 p 和 q 是相邻的素数，非常接近，于是可以将 N 开平方根，这个数的 nextprime 就为 q"></a>q &#x3D; sympy.nextprime()，意味着 p 和 q 是相邻的素数，非常接近，于是可以将 N 开平方根，这个数的 nextprime 就为 q</h6><hr>
-<h2 id="q-与-phi-q-2-关系"><a href="#q-与-phi-q-2-关系" class="headerlink" title="$q$ 与 $phi(q^2)$ 关系"></a>$q$ 与 $phi(q^2)$ 关系</h2><h5 id="题目给出"><a href="#题目给出" class="headerlink" title="题目给出"></a>题目给出</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">p=getPrime(<span class="number">512</span>)</span><br><span class="line">q=getPrime(<span class="number">512</span>)</span><br><span class="line">r=getPrime(<span class="number">512</span>)</span><br><span class="line">n=p*q*r</span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line">m=bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Euler</span>(<span class="params">x</span>):</span><br><span class="line">    res=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,x):</span><br><span class="line">        <span class="keyword">if</span> gmpy2.gcd(i,x)==<span class="number">1</span>:</span><br><span class="line">            res+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">P=p**<span class="number">3</span></span><br><span class="line">Q=q**<span class="number">2</span></span><br><span class="line">c=<span class="built_in">pow</span>(m,e,n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(P)</span><br><span class="line"><span class="built_in">print</span>(Euler(Q))</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line"><span class="comment">#P = 1686761823519516525084824311416810253107853832929411677237594989001281261421956188747941222367576127569696216513071075733130132251383529469095077597202999362675041210639065389821237728348981344440193122126487447235175127680730304754656661704596111547454161716607787386914764780833658069534913186485846587027674567133467341836048413431174183101579802349498153899249182793495245916757355079598668221097821452488627067390724198617676379698358212167618567704428433303</span></span><br><span class="line"><span class="comment">#EQ = 54800501457630149544580145188029519076092032026436445384163914536965196942938808746487258773679836358732387355329080483568564046906919385574994390974732491368590525875801103056613954297623835159311237599961507385582029709732950222118171961946571285930711702624160354541459438994349318149872111029043942485620</span></span><br><span class="line"><span class="comment">#c = 568846080701555049788706647255668980211679838950729382006912035332305772256748203239331545262283165739670330060735508231578298253855583985677482008855909565463834639005910652510802915373310537390293061001384655286359323437737989289787972131460392977341024828530868508329336263146882773903176326250063921456707975853839017504122823304303509269793133132036479219404842827556015566627129747816769486873563843578029479179692030808518925753268233301452280242586076493</span></span><br><span class="line"><span class="comment">#n = 1069981867450019752454430625015273180922733107799929958042241890002915414684562764186875387471850290817321430141222917656674447229697676236077201897275059270515637506529666384968535578683380559782336910645306992981172862940944536463561840412558764760962107958365575095435157363812028759723055357681895134974760386884254380189603418912937553755099672511307377054933171384741715642510754214768859689909974996095149155241791151425031489280537907842378844226410097051</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="解出q"><a href="#解出q" class="headerlink" title="解出q"></a>解出q</h5><blockquote>
-<p><code>Euler(q^2) = q * (q-1)</code>，那么 <code>q-1 &lt; sqrt(Euler(q^2)) &lt; q</code>.(已翻译)</p>
-<blockquote>
-<p>rain: <code>Euler(q^2) = q * (q-1)</code> 推导过程<br>$$\begin{aligned}\phi(q^2) &amp;&#x3D; q^2 - q \ &amp;&#x3D; q*(q - 1)\ &amp;&#x3D; q *\phi(q)*\end{aligned}$$<br>LQX: 关键在于 <code>Euler(q**2) = q * Euler(q)</code><br>lov3:  <code>Euler(q) = q - 1</code></p>
-</blockquote>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Eq = gmpy2.iroot(EQ, <span class="number">2</span>)[<span class="number">0</span>] <span class="comment"># 求平方根</span></span><br><span class="line">q = Eq + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<blockquote>
-<p>Q: 为什么可以用<code>gcd(rsa1,N)</code>计算出 S，其背后的数学原理是什么？<br>已告知有 rsa1 &#x3D; RA * S , N &#x3D; R * S * A</p>
-</blockquote>
-<blockquote>
-<p>A: 因为 rsa1 和 N 都有相同的因子 S。这只是一种初等算术。例如，令 p,q,r 为不同的素数。然后 gcd(pq, pr) &#x3D; p。<br>代码验证如下</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">p=getPrime(<span class="number">14</span>)</span><br><span class="line">q=getPrime(<span class="number">14</span>)</span><br><span class="line">r=getPrime(<span class="number">14</span>)</span><br><span class="line"><span class="built_in">print</span>(p, q, r)</span><br><span class="line"><span class="built_in">print</span>(gmpy2.gcd(p*q, p*r))</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>待更新。。。</p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/12/21/RSA%E8%A7%A3%E5%AF%86%E6%8A%80%E5%B7%A7/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <p><h3 id="保存一些推导好的结论"><a href="#保存一些推导好的结论" class="headerlink" title="保存一些推导好的结论"></a>保存一些推导好的结论</h3></p>
+      <div class="post-button"><a class="btn" href="/2022/12/21/RSA%E8%A7%A3%E5%AF%86%E6%8A%80%E5%B7%A7/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -143,7 +115,7 @@
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-21</span>
       <p><p><a target="_blank" rel="noopener" href="https://vjudge.net/contest/534930">构造+贪心(R1000)</a></p>
 <h4 id="剩余24h"><a href="#剩余24h" class="headerlink" title="剩余24h"></a>剩余24h</h4></p>
-      <div class="post-button"><a class="btn" href="/2022/12/21/%E6%9E%84%E9%80%A0-%E8%B4%AA%E5%BF%83%E9%A2%98%E5%8D%95%E7%BB%83%E4%B9%A0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/21/%E6%9E%84%E9%80%A0-%E8%B4%AA%E5%BF%83%E9%A2%98%E5%8D%95%E7%BB%83%E4%B9%A0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -151,7 +123,7 @@
       <h2 class="title"><a href="/2022/12/21/%E5%BF%AB%E9%80%9F%E5%B9%82/">快速幂</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-21</span>
       <p><h4 id="在acm被称为快速幂-平方求幂-在ctf中也被称为-montecarlo"><a href="#在acm被称为快速幂-平方求幂-在ctf中也被称为-montecarlo" class="headerlink" title="在acm被称为快速幂(平方求幂) 在ctf中也被称为 $montecarlo$"></a>在acm被称为<strong>快速幂</strong>(平方求幂) 在ctf中也被称为 $montecarlo$</h4><h5 id="先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为-幂"><a href="#先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为-幂" class="headerlink" title="先说幂运算的朴素做法，在数学中，重复连乘的运算叫做乘方，乘方的结果称为 幂"></a>先说幂运算的朴素做法，在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%A6" title="数学">数学</a>中，重复连乘的运算叫做<strong>乘方</strong>，乘方的结果称为 <strong>幂</strong></h5><h6 id="displaystyle-n-个相同的数-displaystyle-b-连续相乘"><a href="#displaystyle-n-个相同的数-displaystyle-b-连续相乘" class="headerlink" title="${\displaystyle n}$  个相同的数 ${\displaystyle b}$  连续相乘"></a>${\displaystyle n}$ <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b" alt="n"> 个相同的数 ${\displaystyle b}$ <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/f11423fbb2e967f986e36804a8ae4271734917c3" alt="b"> 连续相乘</h6></p>
-      <div class="post-button"><a class="btn" href="/2022/12/21/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/21/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -159,7 +131,7 @@
       <h2 class="title"><a href="/2022/12/20/PWHhub2022%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/">PWHhub2022冬季赛密码学习</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-20</span>
       <p><h3 id="cry1のWP-大杂烩暂时挖坑"><a href="#cry1のWP-大杂烩暂时挖坑" class="headerlink" title="cry1のWP, 大杂烩暂时挖坑"></a>cry1のWP, 大杂烩暂时挖坑</h3></p>
-      <div class="post-button"><a class="btn" href="/2022/12/20/PWHhub2022%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/20/PWHhub2022%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -190,7 +162,7 @@
 <p>this is rctf_ in increasing order by ascii value<br>Tr:这是按 ascii 值递增顺序排列的 rctf_</p>
 </blockquote>
 </blockquote></p>
-      <div class="post-button"><a class="btn" href="/2022/12/15/rCTF2022%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/15/rCTF2022%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -199,7 +171,7 @@
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-08</span>
       <p><p>$$ax^2+bx+c &#x3D; 0 \quad(a!&#x3D;0) \quad\delta&gt;0$$</p>
 <h2 id="韦达定理"><a href="#韦达定理" class="headerlink" title="韦达定理"></a>韦达定理</h2><p>$$Vieta’s \left{\begin{matrix}<br>x_1 + x_2 &#x3D; \frac{-b}{a} \ x_1x_2 &#x3D; \frac{c}{a}<br>\end{matrix}\right.$$</p></p>
-      <div class="post-button"><a class="btn" href="/2022/12/08/%E5%88%9D%E4%B8%AD%E6%95%B0%E5%AD%A6remake/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/08/%E5%88%9D%E4%B8%AD%E6%95%B0%E5%AD%A6remake/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -211,7 +183,7 @@
 <blockquote>
 <p>Euler对于任意 互质 的整数a和b有性质f(a b) &#x3D; f(a) ⋅ f(b)</p>
 </blockquote></p>
-      <div class="post-button"><a class="btn" href="/2022/12/08/2022-%E9%87%8D%E5%BA%86%E5%B8%82%E8%B5%9BWP-cry1/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/08/2022-%E9%87%8D%E5%BA%86%E5%B8%82%E8%B5%9BWP-cry1/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -219,7 +191,7 @@
       <h2 class="title"><a href="/2022/12/08/RSA%E5%9F%BA%E7%A1%80%E5%85%AC%E5%BC%8F-%E6%AD%A3%E7%A1%AE%E6%80%A7%E8%AF%81%E6%98%8E/">RSA基础公式&正确性证明</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-08</span>
       <p><h2 id="基本原理-¶"><a href="#基本原理-¶" class="headerlink" title="基本原理 ¶"></a>基本原理 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_1" title="Permanent link">¶</a></h2><h3 id="公钥与私钥的产生-¶"><a href="#公钥与私钥的产生-¶" class="headerlink" title="公钥与私钥的产生 ¶"></a>公钥与私钥的产生 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_theory/?h=rsa#_2" title="Permanent link">¶</a></h3></p>
-      <div class="post-button"><a class="btn" href="/2022/12/08/RSA%E5%9F%BA%E7%A1%80%E5%85%AC%E5%BC%8F-%E6%AD%A3%E7%A1%AE%E6%80%A7%E8%AF%81%E6%98%8E/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/08/RSA%E5%9F%BA%E7%A1%80%E5%85%AC%E5%BC%8F-%E6%AD%A3%E7%A1%AE%E6%80%A7%E8%AF%81%E6%98%8E/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -227,7 +199,7 @@
       <h2 class="title"><a href="/2022/12/08/%E7%BA%A7%E6%95%B0/">级数</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-12-08</span>
       <p><h1 id="级数"><a href="#级数" class="headerlink" title="级数"></a>级数</h1><h2 id="调和级数"><a href="#调和级数" class="headerlink" title="调和级数"></a>调和级数</h2><h3 id="调和级数的定义"><a href="#调和级数的定义" class="headerlink" title="调和级数的定义"></a>调和级数的定义</h3><p>调和级数是指这样一个数列：$$\sum_{k&#x3D;1}^{\infty} \frac{1}{k}$$</p></p>
-      <div class="post-button"><a class="btn" href="/2022/12/08/%E7%BA%A7%E6%95%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/12/08/%E7%BA%A7%E6%95%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -235,7 +207,7 @@
       <h2 class="title"><a href="/2022/11/17/2022%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%B5%9BCrypto-WP/">2022四川省赛Crypto_WP</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-17</span>
       <p><h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h5 id="写博客时的本机python环境：python-3-10-x64"><a href="#写博客时的本机python环境：python-3-10-x64" class="headerlink" title="写博客时的本机python环境：python 3.10 x64"></a><em>写博客时的本机python环境：python 3.10 x64</em></h5><h1 id="cry1-babyRSA"><a href="#cry1-babyRSA" class="headerlink" title="cry1-babyRSA"></a>cry1-babyRSA</h1><h3 id="题目附件"><a href="#题目附件" class="headerlink" title="题目附件"></a>题目附件</h3></p>
-      <div class="post-button"><a class="btn" href="/2022/11/17/2022%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%B5%9BCrypto-WP/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/11/17/2022%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%B5%9BCrypto-WP/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
     </div>
   </div>
 
@@ -277,21 +249,21 @@
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-th-list fa-fw"></i>Categories</span>
+      <i class="fa fa-th-list fa-fw"></i>分类</span>
         
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+      <i class="fa fa-bookmark fa-fw"></i>页面</span>
         <ul>
           <li><a href="/guestbook/">Guestbook</a></li>
         <li><a href="/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
+      <i class="fa fa-link fa-fw"></i>友链</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>
