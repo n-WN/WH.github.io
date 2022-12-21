@@ -117,7 +117,13 @@
 <h5 id="解出q"><a href="#解出q" class="headerlink" title="解出q"></a>解出q</h5><blockquote>
 <p><code>Euler(q^2) = q * (q-1)</code>，那么 <code>q-1 &lt; sqrt(Euler(q^2)) &lt; q</code>.(已翻译)</p>
 <blockquote>
-<p>rain: <code>Euler(q^2) = q * (q-1)</code> 推导过程<br>$$\begin{aligned}\phi(q^2) &amp;&#x3D; q^2 - q \ &amp;&#x3D; q*(q - 1)\ &amp;&#x3D; q *\phi(q)*\end{aligned}$$<br>LQX: 关键在于 <code>Euler(q**2) = q * Euler(q)</code><br>lov3:  <code>Euler(q) = q - 1</code></p>
+<p>rain: <code>Euler(q^2) = q * (q-1)</code> 推导过程<br>$$\begin{aligned}\phi(q^2) &amp;&#x3D; q^2 - q \ &amp;&#x3D; q*(q - 1)\ &amp;&#x3D; q *\phi(q)\end{aligned}$$<br>此处待上传一份定理<br>设 $p$ 是素数， $a$ 是一个正整数，那么<br>$$\phi(p^a)&#x3D;p^a-p^{a-1}$$<br>证明</p>
+<blockquote>
+<p>不超过 $p^a$ 且和 $p$ 不互素的正整数就是那些不超过 $p^a$ 且能够被 $p$ 整除的整数，即 $kp$，其中 $1&lt;&#x3D;k&lt;&#x3D;p^{a-1}$. 因为恰有 $p^{a-1}$ 个这样的整数，所以存在 $p^a-p^{a-1}$ 个不超过 $p^a$ 且和 $p^a$ 互素的正整数. 所以 $\phi(p^a) &#x3D; p^a - p^{a-1}$ .</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>LQX: 关键在于 <code>Euler(q**2) = q * Euler(q)</code><br>lov3:  <code>Euler(q) = q - 1</code></p>
 </blockquote>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Eq = gmpy2.iroot(EQ, <span class="number">2</span>)[<span class="number">0</span>] <span class="comment"># 求平方根</span></span><br><span class="line">q = Eq + <span class="number">1</span></span><br></pre></td></tr></table></figure>
@@ -146,7 +152,7 @@
 				<div class="display-tc">
 					<div>
 						<span>Next</span>
-						<h3>没有更新的文章</h3>
+						<h3>No newer post</h3>
 					</div>
 				</div>
 			</div>
@@ -200,21 +206,21 @@
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-th-list fa-fw"></i>分类</span>
+      <i class="fa fa-th-list fa-fw"></i>Categories</span>
         
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
         <ul>
           <li><a href="/guestbook/">Guestbook</a></li>
         <li><a href="/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>友链</span>
+      <i class="fa fa-link fa-fw"></i>Friends</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         <li> <a href="https://thestar0.icu" target="_blank">thestar</a></li>
